@@ -50,9 +50,13 @@ public class CameraButton : MonoBehaviour
         string fileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".png";
         string filePath = Path.Combine(Application.persistentDataPath, fileName);
         File.WriteAllBytes(filePath, bytes);
+        // Tell Android to scan the saved image so it shows up in the gallery
+        AndroidGalleryUtils.ScanFile(filePath);
 
         // Free up memory.
         Destroy(rt);
         Destroy(image);
     }
+
+
 }
