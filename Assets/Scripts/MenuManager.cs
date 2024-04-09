@@ -9,4 +9,9 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("BrilChecker");
     }
+
+    public void OpenFilterMenu()
+    {
+        SceneManager.LoadScene("Filter");
+    }
 }
