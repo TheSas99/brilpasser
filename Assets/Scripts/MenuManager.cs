@@ -14,4 +14,9 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("Filter");
     }
+
+    public void OpenProductsMenu()
+    {
+        SceneManager.LoadScene("Producten");
+    }
 }
