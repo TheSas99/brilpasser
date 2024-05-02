@@ -44,19 +44,34 @@ public class CameraButton : MonoBehaviour
         RenderTexture.active = currentRT;
 
         // Save to an image file.
-        // Encode the image texture into PNG. Can be change to another image file.
+        // Encode the image texture into PNG.
         byte[] bytes = image.EncodeToPNG();
-        // Sample file name: 20230925_192218.png
-        string fileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".png";
-        string filePath = Path.Combine(Application.persistentDataPath, fileName);
-        File.WriteAllBytes(filePath, bytes);
-        // Tell Android to scan the saved image so it shows up in the gallery
-        AndroidGalleryUtils.ScanFile(filePath);
+
+        // Save the image to the device's gallery
+        NativeGallery.Permission permission = NativeGallery.SaveImageToGallery(bytes, "MyGallery", DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".png", (success, path) =>
+        {
+            if (success)
+            {
+                Debug.Log("Saved photo to gallery: " + path);
+            }
+            else
+            {
+                Debug.Log("Failed to save photo to gallery");
+            }
+        });
+
+        // Check if the user has granted permission
+        if (permission == NativeGallery.Permission.Granted)
+        {
+            Debug.Log("Permission granted");
+        }
+        else
+        {
+            Debug.Log("Permission denied");
+        }
 
         // Free up memory.
         Destroy(rt);
         Destroy(image);
     }
-
-
 }
