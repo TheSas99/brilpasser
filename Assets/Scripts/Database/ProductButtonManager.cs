@@ -48,4 +48,17 @@ public class ProductButtonManager : MonoBehaviour
         PlayerPrefs.SetInt(selectedButtonKey, selectedIndex);
     }
 
+    // Method to load the selected button index
+    void LoadSelectedButton()
+    {
+        if (PlayerPrefs.HasKey("SelectedButton"))
+        {
+            int selectedIndex = PlayerPrefs.GetInt("SelectedButton");
+            selectedButton = productButtons[selectedIndex];
+
+            // Perform any visual indication of selection
+            // Example: selectedButton.GetComponent<Image>().color = Color.red;
+        }
+    }
+
 }
