@@ -3874,6 +3874,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1201977445}
+  - component: {fileID: 1201977446}
   m_Layer: 0
   m_Name: FilterManager
   m_TagString: Untagged
@@ -3896,6 +3897,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1201977446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201977444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fd3a9d3686861348a69d475c1f5bafe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shapeDropdown: {fileID: 301088553}
+  materialDropdown: {fileID: 1306156790}
+  priceDropdown: {fileID: 2091771632}
+  applyFilterButton: {fileID: 378348142}
+  resetFilterButton: {fileID: 847928073}
+  productPrefab: {fileID: 0}
+  productContainer: {fileID: 0}
 --- !u!1 &1220701737
 GameObject:
   m_ObjectHideFlags: 0
