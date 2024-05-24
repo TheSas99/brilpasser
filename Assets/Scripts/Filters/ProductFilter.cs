@@ -45,6 +45,11 @@ public class ProductFilter : MonoBehaviour
         {
             filteredProducts = filteredProducts.FindAll(product => product.Shape == selectedShape);
         }
+        
+        if (selectedMaterial != "All")
+        {
+            filteredProducts = filteredProducts.FindAll(product => product.Material == selectedMaterial);
+        }
 
         if (selectedPriceRange != "All")
         {
