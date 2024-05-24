@@ -1,12 +1,14 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ProductUI : MonoBehaviour
 {
-    public Text productNameText;
-    public Text productShapeText;
-    public Text productMaterialText;
-    public Text productPriceText;
+    public TMP_Text productNameText;
+    public TMP_Text productShapeText;
+    public TMP_Text productMaterialText;
+    public TMP_Text productPriceText;
+    public Image productImage;
 
     public void Setup(Product product)
     {

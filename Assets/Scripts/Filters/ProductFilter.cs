@@ -28,8 +28,8 @@ public class ProductFilter : MonoBehaviour
     void InitializeProducts()
     {
         // Example initialization
-        allProducts.Add(new Product { Name = "Product 1", Shape = "Electronics", Material = "Kunststof", Price = 100 });
-        allProducts.Add(new Product { Name = "Product 2", Shape = "Clothing", Material = "Kunststof", Price = 50 });
+        allProducts.Add(new Product { Name = "Product 1", Shape = "Rond", Material = "Kunststof", Price = 100 });
+        allProducts.Add(new Product { Name = "Product 2", Shape = "Hoekig", Material = "Kunststof", Price = 50 });
         // Add more products as needed
     }
 
