@@ -20,5 +20,6 @@ public class ProductUI : MonoBehaviour
         productPriceText.text = "$" + product.Price.ToString();
         productTypeText.text = product.Type;
         productColorText.text = product.Color;
+        productImage.sprite = product.Image; 
     }
 }

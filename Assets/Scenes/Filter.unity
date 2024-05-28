@@ -4745,6 +4745,8 @@ MonoBehaviour:
   productPrefab: {fileID: 2605232327759499081, guid: dbbb6de1896aaab43880cce739c26157,
     type: 3}
   productContainer: {fileID: 1267549644}
+  productUI: {fileID: 6598191895920869730, guid: 664ad6685d74ed64ca4d7f8ff5f2858c,
+    type: 3}
 --- !u!1 &1220701737
 GameObject:
   m_ObjectHideFlags: 0
@@ -5003,7 +5005,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1267549643}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -5012,14 +5014,12 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
+  m_StartCorner: 0
+  m_StartAxis: 1
+  m_CellSize: {x: 800, y: 800}
+  m_Spacing: {x: 40, y: 40}
+  m_Constraint: 2
+  m_ConstraintCount: 2
 --- !u!1 &1279752924
 GameObject:
   m_ObjectHideFlags: 0
