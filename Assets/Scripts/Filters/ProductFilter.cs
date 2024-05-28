@@ -7,6 +7,8 @@ public class ProductFilter : MonoBehaviour
 {
     public TMP_Dropdown shapeDropdown;
     public TMP_Dropdown materialDropdown;
+    public TMP_Dropdown colorDropdown;
+    public TMP_Dropdown typeDropdown;
     public Button applyFilterButton;
     public GameObject productPrefab; // A prefab for displaying products
     public Transform productContainer; // Parent object for instantiated products
@@ -25,8 +27,8 @@ public class ProductFilter : MonoBehaviour
     void InitializeProducts()
     {
         // Example initialization
-        allProducts.Add(new Product { Name = "Product 1", Shape = "Rond", Material = "Kunststof", Price = 100 });
-        allProducts.Add(new Product { Name = "Product 2", Shape = "Vijfhoek", Material = "Kunststof", Price = 50 });
+        allProducts.Add(new Product { Name = "KYO98E", Shape = "Rond", Material = "Metaal", Color = "Bruin", Type = "Bril", Price = 100 });
+        allProducts.Add(new Product { Name = "Product 2", Shape = "Vijfhoek", Material = "Metaal", Color = "Goud", Type = "Bril", Price = 50 });
         // Add more products as needed
     }
 
@@ -34,22 +36,29 @@ public class ProductFilter : MonoBehaviour
     {
         string selectedShape = shapeDropdown.options[shapeDropdown.value].text;
         string selectedMaterial = materialDropdown.options[materialDropdown.value].text;
+        string selectedColor = colorDropdown.options[colorDropdown.value].text;
+        string selectedType = typeDropdown.options[typeDropdown.value].text;
 
         filteredProducts = allProducts;
 
-        if (selectedShape != "All")
+        if (selectedShape != "All" && selectedShape != "GEEN KEUZE")
         {
             filteredProducts = filteredProducts.FindAll(product => product.Shape == selectedShape);
         }
-        
-        if (selectedMaterial != "All")
+
+        if (selectedMaterial != "All" && selectedMaterial != "GEEN KEUZE")
         {
             filteredProducts = filteredProducts.FindAll(product => product.Material == selectedMaterial);
         }
 
-        if(selectedShape == "GEEN KEUZE" && selectedMaterial == "GEEN KEUZE")
+        if(selectedColor != "All" && selectedColor != "GEEN KEUZE")
         {
-            filteredProducts = new List<Product>(allProducts);
+            filteredProducts = filteredProducts.FindAll(product => product.Color == selectedColor);
+        }
+
+        if(selectedType != "All" && selectedType != "GEEN KEUZE")
+        {
+            filteredProducts = filteredProducts.FindAll(product => product.Type == selectedType);
         }
 
         UpdateProductDisplay();
@@ -70,4 +79,3 @@ public class ProductFilter : MonoBehaviour
         }
     }
 }
-
