@@ -8,21 +8,40 @@ public class ProductButton : MonoBehaviour
     public TMP_Text productNameText;
     public Image productImage;
     private Product product;
-    private ProductUI productUI;
+    private GameObject productUIPrefab;
+    private Transform uiContainer;
 
-    public void Setup(Product product, ProductUI productUI)
+    public void Setup(Product product, GameObject productUIPrefab, Transform uiContainer)
     {
         this.product = product;
-        this.productUI = productUI;
+        this.productUIPrefab = productUIPrefab;
+        this.uiContainer = uiContainer;
 
         productNameText.text = product.Name;
         productImage.sprite = product.Image;
 
         button.onClick.AddListener(OnButtonClick);
+        Debug.Log("ProductButton Setup: " + product.Name);
     }
 
     void OnButtonClick()
     {
-        productUI.Setup(product);
+        Debug.Log("Button Clicked: " + product.Name);
+
+        // Instantiate the ProductUI prefab
+        GameObject productUIGO = Instantiate(productUIPrefab, uiContainer);
+
+        // Get the ProductUI component from the instantiated GameObject
+        ProductUI productUI = productUIGO.GetComponent<ProductUI>();
+
+        // Set up the ProductUI with the product data
+        if (productUI != null)
+        {
+            productUI.Setup(product);
+        }
+        else
+        {
+            Debug.LogError("ProductUI component not found on instantiated product UI prefab.");
+        }
     }
 }
