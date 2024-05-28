@@ -29,7 +29,10 @@ public class ProductButton : MonoBehaviour
         Debug.Log("Button Clicked: " + product.Name);
 
         // Instantiate the ProductUI prefab
-        GameObject productUIGO = Instantiate(productUIPrefab, uiContainer);
+        GameObject productUIGO = Instantiate(productUIPrefab);
+
+        // Set the parent of the instantiated object
+        productUIGO.transform.SetParent(uiContainer, false);
 
         // Get the ProductUI component from the instantiated GameObject
         ProductUI productUI = productUIGO.GetComponent<ProductUI>();

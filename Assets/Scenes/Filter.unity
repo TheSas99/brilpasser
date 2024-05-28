@@ -4744,9 +4744,9 @@ MonoBehaviour:
   applyFilterButton: {fileID: 378348142}
   productPrefab: {fileID: 2605232327759499081, guid: dbbb6de1896aaab43880cce739c26157,
     type: 3}
+  productContainer: {fileID: 1267549644}
   productUIPrefab: {fileID: 2605232327759499081, guid: 664ad6685d74ed64ca4d7f8ff5f2858c,
     type: 3}
-  productContainer: {fileID: 1267549644}
   uiContainer: {fileID: 194882162}
 --- !u!1 &1220701737
 GameObject:

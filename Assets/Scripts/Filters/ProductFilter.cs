@@ -11,9 +11,9 @@ public class ProductFilter : MonoBehaviour
     public TMP_Dropdown typeDropdown;
     public Button applyFilterButton;
     public GameObject productPrefab; // A prefab for displaying products
-    public GameObject productUIPrefab; // Reference to the ProductUI prefab
     public Transform productContainer; // Parent object for instantiated products
-    public Transform uiContainer; // Parent object for instantiated product UI panels
+    public GameObject productUIPrefab; // Reference to the ProductUI prefab
+    public Transform uiContainer; // Parent container for the ProductUI instances
 
     private List<Product> allProducts = new List<Product>();
     private List<Product> filteredProducts = new List<Product>();
@@ -102,7 +102,6 @@ public class ProductFilter : MonoBehaviour
             if (productButton != null)
             {
                 productButton.Setup(product, productUIPrefab, uiContainer);
-                Debug.Log("Product instantiated: " + product.Name);
             }
             else
             {

@@ -550,7 +550,6 @@ GameObject:
   - component: {fileID: 5349757874623583133}
   - component: {fileID: 5679256660337465603}
   - component: {fileID: 642135301558889820}
-  - component: {fileID: 6598191895920869730}
   m_Layer: 5
   m_Name: ProductPrefab
   m_TagString: Untagged
@@ -619,25 +618,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6598191895920869730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2605232327759499081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b028cd645e01a24cae7709c96e113f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  productNameText: {fileID: 7243337648271008377}
-  productShapeText: {fileID: 3723076832418362362}
-  productMaterialText: {fileID: 4568718597859673904}
-  productPriceText: {fileID: 1226614170576453348}
-  productTypeText: {fileID: 2826234205134210526}
-  productColorText: {fileID: 8489770621844250111}
-  productImage: {fileID: 6521562817440782116}
 --- !u!1 &2999919096557340100
 GameObject:
   m_ObjectHideFlags: 0

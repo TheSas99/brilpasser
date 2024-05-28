@@ -11,6 +11,13 @@ public class ProductUI : MonoBehaviour
     public TMP_Text productTypeText;
     public TMP_Text productColorText;
     public Image productImage;
+    public Button closeButton; // Reference to the close button
+
+    void Start()
+    {
+        // Add listener to the close button
+        closeButton.onClick.AddListener(ClosePanel);
+    }
 
     public void Setup(Product product)
     {
@@ -20,6 +27,11 @@ public class ProductUI : MonoBehaviour
         productPriceText.text = "$" + product.Price.ToString();
         productTypeText.text = product.Type;
         productColorText.text = product.Color;
-        productImage.sprite = product.Image; 
+        productImage.sprite = product.Image;
+    }
+
+    void ClosePanel()
+    {
+        Destroy(gameObject);
     }
 }
