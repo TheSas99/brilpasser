@@ -578,6 +578,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1020102699562544471, guid: 99104f8b5512a7042a32b3d6a46aa74f,
+        type: 3}
+      propertyPath: m_Name
+      value: Product 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3706395278053091723, guid: 99104f8b5512a7042a32b3d6a46aa74f,
         type: 3}
       propertyPath: m_Name
@@ -592,6 +597,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140983596621016795, guid: 99104f8b5512a7042a32b3d6a46aa74f,
+        type: 3}
+      propertyPath: m_Name
+      value: KYO98E
       objectReference: {fileID: 0}
     - target: {fileID: 9203630866860115642, guid: 99104f8b5512a7042a32b3d6a46aa74f,
         type: 3}

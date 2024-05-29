@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/BrilChecker.unity
     guid: 88fc6c689439e824787bd4b4a89bc7bc
   - enabled: 1
-    path: Assets/Scenes/Producten.unity
-    guid: d875444cb97fd174286d663ed6d7ca37
-  - enabled: 1
     path: Assets/Scenes/Filter.unity
     guid: c035a0762445a344e97514822b3578f8
   m_configObjects:

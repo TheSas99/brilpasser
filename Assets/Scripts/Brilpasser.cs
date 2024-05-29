@@ -1,26 +1,29 @@
 using UnityEngine;
 
+using TMPro;
+using UnityEngine;
+
 public class Brilpasser : MonoBehaviour
 {
     public Transform parent;
+    public TMP_Text productNameText;
 
     void Start()
     {
-        // Load the selected child index from PlayerPrefs
-        int selectedIndex = PlayerPrefs.GetInt("SelectedButton", -1);
+        // Retrieve the selected product name from PlayerPrefs
+        string selectedProductName = PlayerPrefs.GetString("SelectedProductName", "No Product Selected");
 
-        // If a valid index is found, activate the corresponding child
-        if (selectedIndex >= 0 && selectedIndex < parent.childCount)
-        {
-            // Deactivate all children first
-            DeactivateAllChildren();
+        DeactivateAllChildren();
 
-            // Activate the selected child
-            parent.GetChild(selectedIndex).gameObject.SetActive(true);
-        }
-        else
+        // Iterate through the children of the parent GameObject
+        foreach (Transform child in parent)
         {
-            Debug.LogWarning("Invalid selected index or no index found in PlayerPrefs.");
+            // Check if the name of the child matches the selected product name
+            if (child.name == selectedProductName)
+            {
+                Debug.Log("Found matching product: " + selectedProductName);
+                child.gameObject.SetActive(true);
+            }
         }
     }
 

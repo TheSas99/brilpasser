@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ProductUI : MonoBehaviour
@@ -12,10 +13,12 @@ public class ProductUI : MonoBehaviour
     public TMP_Text productColorText;
     public Image productImage;
     public Button closeButton;
+    public Button continueButton;
 
     void Start()
     {
         closeButton.onClick.AddListener(ClosePanel);
+        continueButton.onClick.AddListener(StartEyeWearFitting);
     }
 
     public void Setup(Product product)
@@ -33,4 +36,18 @@ public class ProductUI : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    void StartEyeWearFitting()
+    {
+        // Get the selected product name
+        string selectedProductName = productNameText.text;
+
+        // Store the selected product name in PlayerPrefs
+        PlayerPrefs.SetString("SelectedProductName", selectedProductName);
+
+        // Load the next scene
+        SceneManager.LoadScene("BrilChecker");
+    }
+
+
 }
