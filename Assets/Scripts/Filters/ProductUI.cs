@@ -11,11 +11,10 @@ public class ProductUI : MonoBehaviour
     public TMP_Text productTypeText;
     public TMP_Text productColorText;
     public Image productImage;
-    public Button closeButton; // Reference to the close button
+    public Button closeButton;
 
     void Start()
     {
-        // Add listener to the close button
         closeButton.onClick.AddListener(ClosePanel);
     }
 

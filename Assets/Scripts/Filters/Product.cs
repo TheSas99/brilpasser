@@ -5,7 +5,7 @@ public class Product
 {
     public string Name;
     public string Shape;
-    public Sprite Image; 
+    public Sprite Image;
     public string Material;
     public string Type;
     public string Color;

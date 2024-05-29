@@ -10,19 +10,17 @@ public class ProductFilter : MonoBehaviour
     public TMP_Dropdown colorDropdown;
     public TMP_Dropdown typeDropdown;
     public Button applyFilterButton;
-    public GameObject productPrefab; // A prefab for displaying products
-    public Transform productContainer; // Parent object for instantiated products
-    public GameObject productUIPrefab; // Reference to the ProductUI prefab
-    public Transform uiContainer; // Parent container for the ProductUI instances
+    public GameObject productPrefab;
+    public Transform productContainer;
+    public GameObject productUIPrefab;
+    public Transform uiContainer;
 
-    private List<Product> allProducts = new List<Product>();
+    public List<Product> allProducts = new List<Product>();
     private List<Product> filteredProducts = new List<Product>();
 
     void Start()
     {
         applyFilterButton.onClick.AddListener(ApplyFilters);
-
-        // Load or initialize your products
         InitializeProducts();
     }
 
@@ -37,7 +35,7 @@ public class ProductFilter : MonoBehaviour
             Color = "Bruin",
             Type = "Bril",
             Price = 100,
-            Image = Resources.Load<Sprite>("Images/KYO98E") // Correctly load and cast the sprite
+            Image = Resources.Load<Sprite>("Sprites/Images/Brillen/KYO98E")
         });
         allProducts.Add(new Product
         {
@@ -47,7 +45,7 @@ public class ProductFilter : MonoBehaviour
             Color = "Goud",
             Type = "Bril",
             Price = 50,
-            Image = Resources.Load<Sprite>("Images/Product2") // Correctly load and cast the sprite
+            Image = Resources.Load<Sprite>("Sprites/Images/Brillen/PRODUCT_2")
         });
         // Add more products as needed
     }
@@ -59,26 +57,19 @@ public class ProductFilter : MonoBehaviour
         string selectedColor = colorDropdown.options[colorDropdown.value].text;
         string selectedType = typeDropdown.options[typeDropdown.value].text;
 
-        filteredProducts = allProducts;
+        filteredProducts.Clear();
 
-        if (selectedShape != "All" && selectedShape != "GEEN KEUZE")
+        foreach (var product in allProducts)
         {
-            filteredProducts = filteredProducts.FindAll(product => product.Shape == selectedShape);
-        }
+            bool shapeMatch = selectedShape == "All" || selectedShape == "GEEN KEUZE" || product.Shape == selectedShape;
+            bool materialMatch = selectedMaterial == "All" || selectedMaterial == "GEEN KEUZE" || product.Material == selectedMaterial;
+            bool colorMatch = selectedColor == "All" || selectedColor == "GEEN KEUZE" || product.Color == selectedColor;
+            bool typeMatch = selectedType == "All" || selectedType == "GEEN KEUZE" || product.Type == selectedType;
 
-        if (selectedMaterial != "All" && selectedMaterial != "GEEN KEUZE")
-        {
-            filteredProducts = filteredProducts.FindAll(product => product.Material == selectedMaterial);
-        }
-
-        if (selectedColor != "All" && selectedColor != "GEEN KEUZE")
-        {
-            filteredProducts = filteredProducts.FindAll(product => product.Color == selectedColor);
-        }
-
-        if (selectedType != "All" && selectedType != "GEEN KEUZE")
-        {
-            filteredProducts = filteredProducts.FindAll(product => product.Type == selectedType);
+            if (shapeMatch && materialMatch && colorMatch && typeMatch)
+            {
+                filteredProducts.Add(product);
+            }
         }
 
         UpdateProductDisplay();
@@ -95,10 +86,8 @@ public class ProductFilter : MonoBehaviour
         {
             GameObject productGO = Instantiate(productPrefab, productContainer);
 
-            // Get the ProductButton component from the child GameObject
             ProductButton productButton = productGO.GetComponentInChildren<ProductButton>();
 
-            // Check if productButton is null before accessing its members
             if (productButton != null)
             {
                 productButton.Setup(product, productUIPrefab, uiContainer);

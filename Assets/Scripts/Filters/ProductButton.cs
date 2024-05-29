@@ -21,23 +21,14 @@ public class ProductButton : MonoBehaviour
         productImage.sprite = product.Image;
 
         button.onClick.AddListener(OnButtonClick);
-        Debug.Log("ProductButton Setup: " + product.Name);
     }
 
     void OnButtonClick()
     {
-        Debug.Log("Button Clicked: " + product.Name);
-
-        // Instantiate the ProductUI prefab
         GameObject productUIGO = Instantiate(productUIPrefab);
-
-        // Set the parent of the instantiated object
         productUIGO.transform.SetParent(uiContainer, false);
-
-        // Get the ProductUI component from the instantiated GameObject
         ProductUI productUI = productUIGO.GetComponent<ProductUI>();
 
-        // Set up the ProductUI with the product data
         if (productUI != null)
         {
             productUI.Setup(product);
