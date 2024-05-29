@@ -6,7 +6,6 @@ using UnityEngine;
 public class Brilpasser : MonoBehaviour
 {
     public Transform parent;
-    public TMP_Text productNameText;
 
     void Start()
     {
@@ -19,7 +18,7 @@ public class Brilpasser : MonoBehaviour
         foreach (Transform child in parent)
         {
             // Check if the name of the child matches the selected product name
-            if (child.name == selectedProductName)
+            if (child.name == selectedProductName && selectedProductName != "No Product Selected")
             {
                 Debug.Log("Found matching product: " + selectedProductName);
                 child.gameObject.SetActive(true);

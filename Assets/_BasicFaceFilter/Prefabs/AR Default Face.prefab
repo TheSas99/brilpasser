@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3029344794949134873}
   m_Layer: 0
-  m_Name: bril2
+  m_Name: Product 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8642845140207549453}
-  m_Father: {fileID: 9203630866860115642}
+  m_Father: {fileID: 4287821481793333693}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1211959829395751764
 GameObject:
@@ -200,6 +200,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1887428063815073397
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4287821481793333693}
+  m_Layer: 0
+  m_Name: CONTAINER
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4287821481793333693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887428063815073397}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4483296072313567635}
+  - {fileID: 3029344794949134873}
+  - {fileID: 4957459530440874962}
+  - {fileID: 3725298447685609219}
+  - {fileID: 8894183327941655358}
+  m_Father: {fileID: 9203630866860115642}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2002127141623045008
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +266,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2015126155532868198}
-  m_Father: {fileID: 9203630866860115642}
+  m_Father: {fileID: 4287821481793333693}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2113948914165567818
 GameObject:
@@ -435,11 +471,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4483296072313567635}
-  - {fileID: 3029344794949134873}
-  - {fileID: 4957459530440874962}
-  - {fileID: 3725298447685609219}
-  - {fileID: 8894183327941655358}
+  - {fileID: 4287821481793333693}
   - {fileID: 5661705866193184045}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -552,7 +584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d81e56494d56af47985ea82a7322546, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 9203630866860115642}
+  parent: {fileID: 4287821481793333693}
 --- !u!1 &4590593461271527924
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,7 +615,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9146375375795118663}
-  m_Father: {fileID: 9203630866860115642}
+  m_Father: {fileID: 4287821481793333693}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5853910765741191275
 GameObject:
@@ -615,7 +647,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 205803550323320083}
-  m_Father: {fileID: 9203630866860115642}
+  m_Father: {fileID: 4287821481793333693}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6831355810225136871
 GameObject:
@@ -711,7 +743,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4483296072313567635}
   m_Layer: 0
-  m_Name: bril1
+  m_Name: KYO98E
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -731,7 +763,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1390775062418099333}
-  m_Father: {fileID: 9203630866860115642}
+  m_Father: {fileID: 4287821481793333693}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8536984466792080645
 PrefabInstance:

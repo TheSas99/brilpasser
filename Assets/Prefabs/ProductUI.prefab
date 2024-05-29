@@ -761,6 +761,7 @@ MonoBehaviour:
   productColorText: {fileID: 8489770621844250111}
   productImage: {fileID: 6521562817440782116}
   closeButton: {fileID: 7240901686586630906}
+  continueButton: {fileID: 7124126605874069109}
 --- !u!1 &2999919096557340100
 GameObject:
   m_ObjectHideFlags: 0
