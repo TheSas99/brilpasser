@@ -35,7 +35,7 @@ public class ProductFilter : MonoBehaviour
             Color = "Bruin",
             Type = "Bril",
             Price = 100,
-            Image = Resources.Load<Sprite>("Sprites/Images/Brillen/KYO98E")
+            Image = Resources.Load<Sprite>("Sprites/Images/Brillen/KYO98E/KYO98E")
         });
         allProducts.Add(new Product
         {
