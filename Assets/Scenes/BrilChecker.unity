@@ -583,6 +583,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Product 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2002127141623045008, guid: 99104f8b5512a7042a32b3d6a46aa74f,
+        type: 3}
+      propertyPath: m_Name
+      value: 2314Z10911
+      objectReference: {fileID: 0}
+    - target: {fileID: 2002127141623045008, guid: 99104f8b5512a7042a32b3d6a46aa74f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3706395278053091723, guid: 99104f8b5512a7042a32b3d6a46aa74f,
         type: 3}
       propertyPath: m_Name
@@ -593,10 +603,25 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4590593461271527924, guid: 99104f8b5512a7042a32b3d6a46aa74f,
+        type: 3}
+      propertyPath: m_Name
+      value: Tom Lailor
+      objectReference: {fileID: 0}
+    - target: {fileID: 4590593461271527924, guid: 99104f8b5512a7042a32b3d6a46aa74f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5033260567494721431, guid: 99104f8b5512a7042a32b3d6a46aa74f,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5853910765741191275, guid: 99104f8b5512a7042a32b3d6a46aa74f,
+        type: 3}
+      propertyPath: m_Name
+      value: Rayban 24019/LE
       objectReference: {fileID: 0}
     - target: {fileID: 7140983596621016795, guid: 99104f8b5512a7042a32b3d6a46aa74f,
         type: 3}
