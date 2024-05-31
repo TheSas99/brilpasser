@@ -47,36 +47,7 @@ public class ProductFilter : MonoBehaviour
             Price = 50,
             Image = Resources.Load<Sprite>("Sprites/Images/Brillen/PRODUCT_2")
         });
-        allProducts.Add(new Product
-        {
-            Name = "Rayban 24019/LE",
-            Shape = "Ovaal",
-            Material = "Kunststof",
-            Color = "Blauw",
-            Type = "Bril",
-            Price = 150,
-            Image = Resources.Load<Sprite>("Sprites/Images/Brillen/Rayban_24019LE")
-        });
-        allProducts.Add(new Product
-        {
-            Name = "2314Z10911",
-            Shape = "Ovaal",
-            Material = "Kunststof",
-            Color = "Rood",
-            Type = "Zonnebril",
-            Price = 237,
-            Image = Resources.Load<Sprite>("Sprites/Images/Brillen/2314Z10911")
-        });
-        allProducts.Add(new Product
-        {
-            Name = "Tom Lailor",
-            Shape = "Rond",
-            Material = "Metaal",
-            Color = "Bruin",
-            Type = "Bril",
-            Price = 237,
-            Image = Resources.Load<Sprite>("Sprites/Images/Brillen/Tom_Tailor")
-        });
+        // Add more products as needed
     }
 
     void ApplyFilters()
