@@ -1503,8 +1503,6 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Rond
       m_Image: {fileID: 0}
-    - m_Text: Vierkant
-      m_Image: {fileID: 0}
     - m_Text: Vijfhoek
       m_Image: {fileID: 0}
     - m_Text: Ovaal
@@ -2641,6 +2639,10 @@ MonoBehaviour:
     - m_Text: Bruin
       m_Image: {fileID: 0}
     - m_Text: Blauw
+      m_Image: {fileID: 0}
+    - m_Text: Zwart
+      m_Image: {fileID: 0}
+    - m_Text: Paars
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6934,6 +6936,10 @@ MonoBehaviour:
     - m_Text: Bril
       m_Image: {fileID: 0}
     - m_Text: Zonnebril
+      m_Image: {fileID: 0}
+    - m_Text: Sportbril
+      m_Image: {fileID: 0}
+    - m_Text: Leesbril
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

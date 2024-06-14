@@ -76,6 +76,36 @@ public class ProductFilter : MonoBehaviour
             Type = "Bril",
             Price = 237,
             Image = Resources.Load<Sprite>("Sprites/Images/Brillen/Tom_Tailor")
+        });        
+        allProducts.Add(new Product
+        {
+            Name = "OfarKids MO0108B",
+            Shape = "Ovaal",
+            Material = "Kunststof",
+            Color = "Paars",
+            Type = "Sportbril",
+            Price = 65,
+            Image = Resources.Load<Sprite>("Sprites/Images/Brillen/OfarKids_MO0108B")
+        });        
+        allProducts.Add(new Product
+        {
+            Name = "Ofar Blue Glasses",
+            Shape = "Ovaal",
+            Material = "Metaal",
+            Color = "Blauw",
+            Type = "Sportbril",
+            Price = 129,
+            Image = Resources.Load<Sprite>("Sprites/Images/Brillen/Ofar_blue_glasses")
+        });
+        allProducts.Add(new Product
+        {
+            Name = "Puma Bril",
+            Shape = "Ovaal",
+            Material = "Kunststof",
+            Color = "Zwart",
+            Type = "Bril",
+            Price = 85,
+            Image = Resources.Load<Sprite>("Sprites/Images/Brillen/Puma_Bril_Zwart")
         });
     }
 
