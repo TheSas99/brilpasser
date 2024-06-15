@@ -20,10 +20,18 @@ public class ProductFilter : MonoBehaviour
     public List<Product> allProducts = new List<Product>();
     private List<Product> filteredProducts = new List<Product>();
 
+    private const string ShapePrefKey = "ShapeFilter";
+    private const string MaterialPrefKey = "MaterialFilter";
+    private const string ColorPrefKey = "ColorFilter";
+    private const string TypePrefKey = "TypeFilter";
+    private const string BrandPrefKey = "BrandFilter";
+    private const string GenderPrefKey = "GenderFilter";
+
     void Start()
     {
         applyFilterButton.onClick.AddListener(ApplyFilters);
         InitializeProducts();
+        LoadFilters();
     }
 
     void InitializeProducts()
@@ -88,7 +96,7 @@ public class ProductFilter : MonoBehaviour
             Type = "Bril",
             Price = 237,
             Image = Resources.Load<Sprite>("Sprites/Images/Brillen/Tom_Tailor")
-        });        
+        });
         allProducts.Add(new Product
         {
             Name = "OfarKids MO0108B",
@@ -100,7 +108,7 @@ public class ProductFilter : MonoBehaviour
             Type = "Sportbril",
             Price = 65,
             Image = Resources.Load<Sprite>("Sprites/Images/Brillen/OfarKids_MO0108B")
-        });        
+        });
         allProducts.Add(new Product
         {
             Name = "Ofar Blue Glasses",
@@ -136,6 +144,8 @@ public class ProductFilter : MonoBehaviour
         string selectedBrand = brandDropdown.options[brandDropdown.value].text;
         string selectedGender = genderDropdown.options[genderDropdown.value].text;
 
+        SaveFilters(selectedShape, selectedMaterial, selectedColor, selectedType, selectedBrand, selectedGender);
+
         filteredProducts.Clear();
 
         foreach (var product in allProducts)
@@ -160,7 +170,6 @@ public class ProductFilter : MonoBehaviour
         UpdateProductDisplay();
     }
 
-
     void UpdateProductDisplay()
     {
         foreach (Transform child in productContainer)
@@ -183,5 +192,25 @@ public class ProductFilter : MonoBehaviour
                 Debug.LogError("ProductButton component not found on instantiated product prefab.");
             }
         }
+    }
+
+    void SaveFilters(string shape, string material, string color, string type, string brand, string gender)
+    {
+        PlayerPrefs.SetString(ShapePrefKey, shape);
+        PlayerPrefs.SetString(MaterialPrefKey, material);
+        PlayerPrefs.SetString(ColorPrefKey, color);
+        PlayerPrefs.SetString(TypePrefKey, type);
+        PlayerPrefs.SetString(BrandPrefKey, brand);
+        PlayerPrefs.SetString(GenderPrefKey, gender);
+    }
+
+    void LoadFilters()
+    {
+        if (PlayerPrefs.HasKey(ShapePrefKey)) shapeDropdown.value = shapeDropdown.options.FindIndex(option => option.text == PlayerPrefs.GetString(ShapePrefKey));
+        if (PlayerPrefs.HasKey(MaterialPrefKey)) materialDropdown.value = materialDropdown.options.FindIndex(option => option.text == PlayerPrefs.GetString(MaterialPrefKey));
+        if (PlayerPrefs.HasKey(ColorPrefKey)) colorDropdown.value = colorDropdown.options.FindIndex(option => option.text == PlayerPrefs.GetString(ColorPrefKey));
+        if (PlayerPrefs.HasKey(TypePrefKey)) typeDropdown.value = typeDropdown.options.FindIndex(option => option.text == PlayerPrefs.GetString(TypePrefKey));
+        if (PlayerPrefs.HasKey(BrandPrefKey)) brandDropdown.value = brandDropdown.options.FindIndex(option => option.text == PlayerPrefs.GetString(BrandPrefKey));
+        if (PlayerPrefs.HasKey(GenderPrefKey)) genderDropdown.value = genderDropdown.options.FindIndex(option => option.text == PlayerPrefs.GetString(GenderPrefKey));
     }
 }
