@@ -2,7 +2,7 @@
     "products": [
         {
             "montuur_id": "1",
-            "merk_id": "1",
+            "merk_id": "2",
             "naam": "Puma Bril",
             "type": "Bril",
             "kleur": "Zwart",
@@ -11,7 +11,7 @@
             "gender": "Unisex",
             "montuur_prijs": "75",
             "image": "Puma_Bril_Zwart",
-            "Merknaam": "Testmerk"
+            "Merknaam": "Puma"
         },
         {
             "montuur_id": "2",
@@ -38,6 +38,32 @@
             "montuur_prijs": "95",
             "image": "Tom_Tailor",
             "Merknaam": "Tom Tailor"
+        },
+        {
+            "montuur_id": "4",
+            "merk_id": "1",
+            "naam": "KYO98E",
+            "type": "Bril",
+            "kleur": "Bruin",
+            "materiaal": "Metaal",
+            "vorm": "Rond",
+            "gender": "",
+            "montuur_prijs": "113",
+            "image": "KYO98E",
+            "Merknaam": "Testmerk"
+        },
+        {
+            "montuur_id": "5",
+            "merk_id": "1",
+            "naam": "Product 2",
+            "type": "Metaal",
+            "kleur": "Bruin",
+            "materiaal": "Metaal",
+            "vorm": "Ovaal",
+            "gender": "Vrouwen",
+            "montuur_prijs": "50",
+            "image": "PRODUCT_2",
+            "Merknaam": "Testmerk"
         }
     ]
 }

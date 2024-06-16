@@ -20,6 +20,7 @@ public class ProductFilter : MonoBehaviour
     public Transform productContainer;
     public GameObject productUIPrefab;
     public Transform uiContainer;
+    public GameObject NoResultsMessage;
 
     public List<Product> allProducts = new List<Product>();
     private List<Product> filteredProducts = new List<Product>();
@@ -127,28 +128,60 @@ public class ProductFilter : MonoBehaviour
         }
 
         UpdateProductDisplay();
+
+        if (filteredProducts.Count == 0)
+        {
+            ShowNoResultsMessage();
+        }
+        else
+        {
+            HideNoResultsMessage();
+        }
     }
+
+
+    void ShowNoResultsMessage()
+    {
+        NoResultsMessage.SetActive(true);
+    }
+
+    void HideNoResultsMessage()
+    {
+        NoResultsMessage.SetActive(false);
+    }
+
 
     void UpdateProductDisplay()
     {
         foreach (Transform child in productContainer)
         {
-            Destroy(child.gameObject);
+            if (child.gameObject != NoResultsMessage)
+            {
+                Destroy(child.gameObject);
+            }
         }
 
-        foreach (var product in filteredProducts)
+        if (filteredProducts.Count == 0)
         {
-            GameObject productGO = Instantiate(productPrefab, productContainer);
-
-            ProductButton productButton = productGO.GetComponentInChildren<ProductButton>();
-
-            if (productButton != null)
+            ShowNoResultsMessage();
+        }
+        else
+        {
+            // Instantiate product prefabs for each filtered product
+            foreach (var product in filteredProducts)
             {
-                productButton.Setup(product, productUIPrefab, uiContainer);
-            }
-            else
-            {
-                Debug.LogError("ProductButton component not found on instantiated product prefab.");
+                GameObject productGO = Instantiate(productPrefab, productContainer);
+
+                ProductButton productButton = productGO.GetComponentInChildren<ProductButton>();
+
+                if (productButton != null)
+                {
+                    productButton.Setup(product, productUIPrefab, uiContainer);
+                }
+                else
+                {
+                    Debug.LogError("ProductButton component not found on instantiated product prefab.");
+                }
             }
         }
     }
