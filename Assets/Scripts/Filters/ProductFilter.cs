@@ -1,7 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
+using System.IO;
+using System.Linq;
+using System;
 
 public class ProductFilter : MonoBehaviour
 {
@@ -16,6 +21,7 @@ public class ProductFilter : MonoBehaviour
     public Transform productContainer;
     public GameObject productUIPrefab;
     public Transform uiContainer;
+    public GameObject NoResultsMessage;
 
     public List<Product> allProducts = new List<Product>();
     private List<Product> filteredProducts = new List<Product>();
@@ -27,119 +33,80 @@ public class ProductFilter : MonoBehaviour
     private const string BrandPrefKey = "BrandFilter";
     private const string GenderPrefKey = "GenderFilter";
 
+    private const string serverUrl = "http://localhost/brilpasser-backend/unity/getMonturen.php/"; // URL to your server-side script
+    private const string localJsonFilePath = "Resources/ProductData/monturen.json"; // Path to the locally stored JSON file
+
     void Start()
     {
         applyFilterButton.onClick.AddListener(ApplyFilters);
-        InitializeProducts();
-        LoadFilters();
+        StartCoroutine(GetProducts());
     }
 
-    void InitializeProducts()
+    IEnumerator GetProducts()
     {
-        allProducts = new List<Product>
+        // Check for internet connection
+        if (Application.internetReachability != NetworkReachability.NotReachable)
         {
-            new Product
+            using (UnityWebRequest webRequest = UnityWebRequest.Get(serverUrl))
             {
-                Name = "KYO98E",
-                Shape = "Rond",
-                Material = "Metaal",
-                Color = "Bruin",
-                Brand = "Kansai",
-                Gender = "Unisex",
-                Type = "Bril",
-                Price = 100,
-                Image = LoadProductImage("KYO98E")
-            },
-            new Product
-            {
-                Name = "Product 2",
-                Shape = "Vijfhoek",
-                Material = "Metaal",
-                Color = "Goud",
-                Brand = "EPOS",
-                Gender = "Unisex",
-                Type = "Bril",
-                Price = 50,
-                Image = LoadProductImage("PRODUCT_2")
-            },
-            new Product
-            {
-                Name = "Rayban 24019/LE",
-                Shape = "Ovaal",
-                Material = "Kunststof",
-                Color = "Blauw",
-                Brand = "Rayban",
-                Gender = "Unisex",
-                Type = "Bril",
-                Price = 150,
-                Image = LoadProductImage("Rayban_24019LE")
-            },
-            new Product
-            {
-                Name = "2314Z10911",
-                Shape = "Ovaal",
-                Material = "Kunststof",
-                Color = "Rood",
-                Brand = "Rayban",
-                Gender = "Unisex",
-                Type = "Zonnebril",
-                Price = 237,
-                Image = LoadProductImage("2314Z10911")
-            },
-            new Product
-            {
-                Name = "Tom Tailor",
-                Shape = "Rond",
-                Material = "Metaal",
-                Color = "Bruin",
-                Brand = "Tom Tailor",
-                Gender = "Unisex",
-                Type = "Bril",
-                Price = 237,
-                Image = LoadProductImage("Tom_Tailor")
-            },
-            new Product
-            {
-                Name = "OfarKids MO0108B",
-                Shape = "Ovaal",
-                Material = "Kunststof",
-                Color = "Paars",
-                Brand = "Ofar",
-                Gender = "Kinderen",
-                Type = "Sportbril",
-                Price = 65,
-                Image = LoadProductImage("OfarKids_MO0108B")
-            },
-            new Product
-            {
-                Name = "Ofar Blue Glasses",
-                Shape = "Ovaal",
-                Material = "Metaal",
-                Color = "Blauw",
-                Brand = "Ofar",
-                Gender = "Mannen",
-                Type = "Sportbril",
-                Price = 129,
-                Image = LoadProductImage("Ofar_blue_glasses")
-            },
-            new Product
-            {
-                Name = "Puma Bril",
-                Shape = "Ovaal",
-                Material = "Kunststof",
-                Color = "Zwart",
-                Brand = "Puma",
-                Gender = "Mannen",
-                Type = "Bril",
-                Price = 85,
-                Image = LoadProductImage("Puma_Bril_Zwart")
+                yield return webRequest.SendWebRequest();
+
+                if (webRequest.result != UnityWebRequest.Result.Success)
+                {
+                    Debug.LogWarning("Failed to fetch data from server. Loading locally stored JSON data.");
+                    LoadLocalJson();
+                }
+                else
+                {
+                    string jsonResponse = webRequest.downloadHandler.text;
+                    ProductList productList = JsonUtility.FromJson<ProductList>(jsonResponse);
+
+                    allProducts = productList.products;
+                    SaveLocalJson(jsonResponse); // Save the JSON data to local file
+                    PopulateDropdowns(); // Populate dropdowns with JSON data
+                }
             }
-        };
+        }
+        else
+        {
+            // No internet connection, fallback to local JSON
+            Debug.LogWarning("No internet connection. Loading locally stored JSON data.");
+            LoadLocalJson();
+        }
     }
 
-    Sprite LoadProductImage(string imageName)
+    void LoadLocalJson()
     {
-        return Resources.Load<Sprite>($"Sprites/Images/Brillen/{imageName}");
+        string filePath = Path.Combine(Application.dataPath, localJsonFilePath);
+
+        if (File.Exists(filePath))
+        {
+            try
+            {
+                string json = File.ReadAllText(filePath);
+                Debug.Log("Loaded JSON from local file: " + json);
+                ProductList productList = JsonUtility.FromJson<ProductList>(json);
+                allProducts = productList.products;
+                PopulateDropdowns(); // Populate dropdowns with JSON data
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Failed to parse local JSON file: " + localJsonFilePath);
+                Debug.LogError("Error: " + ex.Message);
+            }
+        }
+        else
+        {
+            Debug.LogError("Local JSON file not found: " + localJsonFilePath);
+        }
+    }
+
+    void SaveLocalJson(string jsonData)
+    {
+        string filePath = Path.Combine(Application.dataPath, localJsonFilePath);
+        Debug.Log(filePath);
+        File.WriteAllText(filePath, jsonData);
+        Debug.Log("Local JSON file updated.");
     }
 
     void ApplyFilters()
@@ -151,62 +118,78 @@ public class ProductFilter : MonoBehaviour
         string selectedBrand = brandDropdown.options[brandDropdown.value].text;
         string selectedGender = genderDropdown.options[genderDropdown.value].text;
 
-        SaveFilters(selectedShape, selectedMaterial, selectedColor, selectedType, selectedBrand, selectedGender);
-        filteredProducts = FilterProducts(selectedShape, selectedMaterial, selectedColor, selectedType, selectedBrand, selectedGender);
-        UpdateProductDisplay();
-    }
-
-    List<Product> FilterProducts(string shape, string material, string color, string type, string brand, string gender)
-    {
-        List<Product> result = new List<Product>();
+        filteredProducts.Clear();
 
         foreach (var product in allProducts)
         {
-            if (MatchesFilter(product.Shape, shape) &&
-                MatchesFilter(product.Material, material) &&
-                MatchesFilter(product.Color, color) &&
-                MatchesFilter(product.Type, type) &&
-                MatchesFilter(product.Brand, brand) &&
-                MatchesGenderFilter(product.Gender, gender))
+            bool shapeMatch = selectedShape == "Alle" || product.Shape == selectedShape;
+            bool materialMatch = selectedMaterial == "Alle" || product.Material == selectedMaterial;
+            bool colorMatch = selectedColor == "Alle" || product.Color == selectedColor;
+            bool typeMatch = selectedType == "Alle" ||  product.Type == selectedType;
+            bool brandMatch = selectedBrand == "Alle" || product.Brand == selectedBrand;
+            bool genderMatch = selectedGender == "Alle" || product.Gender == selectedGender || product.Gender == "Unisex";
+
+            if (shapeMatch && materialMatch && colorMatch && typeMatch && brandMatch && genderMatch)
             {
-                result.Add(product);
+                filteredProducts.Add(product);
             }
         }
 
-        return result;
+        UpdateProductDisplay();
+
+        if (filteredProducts.Count == 0)
+        {
+            ShowNoResultsMessage();
+        }
+        else
+        {
+            HideNoResultsMessage();
+        }
+
+        SaveFilters(selectedShape, selectedMaterial, selectedColor, selectedType, selectedBrand, selectedGender); // Save filter settings after applying filters
     }
 
-    bool MatchesFilter(string productAttribute, string selectedFilter)
+    void ShowNoResultsMessage()
     {
-        return selectedFilter == "All" || selectedFilter == "GEEN KEUZE" || productAttribute == selectedFilter;
+        NoResultsMessage.SetActive(true);
     }
 
-    bool MatchesGenderFilter(string productGender, string selectedGender)
+    void HideNoResultsMessage()
     {
-        return selectedGender == "All" || selectedGender == "GEEN KEUZE" ||
-               productGender == selectedGender ||
-               productGender == "Unisex" && (selectedGender == "Mannen" || selectedGender == "Vrouwen" || selectedGender == "Unisex");
+        NoResultsMessage.SetActive(false);
     }
 
     void UpdateProductDisplay()
     {
         foreach (Transform child in productContainer)
         {
-            Destroy(child.gameObject);
+            if (child.gameObject != NoResultsMessage)
+            {
+                Destroy(child.gameObject);
+            }
         }
 
-        foreach (var product in filteredProducts)
+        if (filteredProducts.Count == 0)
         {
-            GameObject productGO = Instantiate(productPrefab, productContainer);
-            ProductButton productButton = productGO.GetComponentInChildren<ProductButton>();
+            ShowNoResultsMessage();
+        }
+        else
+        {
+            // Instantiate product prefabs for each filtered product
+            foreach (var product in filteredProducts)
+            {
+                GameObject productGO = Instantiate(productPrefab, productContainer);
 
-            if (productButton != null)
-            {
-                productButton.Setup(product, productUIPrefab, uiContainer);
-            }
-            else
-            {
-                Debug.LogError("ProductButton component not found on instantiated product prefab.");
+                ProductButton productButton = productGO.GetComponentInChildren<ProductButton>();
+
+                if (productButton != null)
+                {
+                    productButton.Setup(product, productUIPrefab, uiContainer);
+                }
+                else
+                {
+                    Debug.LogError("ProductButton component not found on instantiated product prefab.");
+                }
             }
         }
     }
@@ -219,6 +202,7 @@ public class ProductFilter : MonoBehaviour
         PlayerPrefs.SetString(TypePrefKey, type);
         PlayerPrefs.SetString(BrandPrefKey, brand);
         PlayerPrefs.SetString(GenderPrefKey, gender);
+        PlayerPrefs.Save(); // Save PlayerPrefs after setting values
     }
 
     void LoadFilters()
@@ -242,5 +226,28 @@ public class ProductFilter : MonoBehaviour
                 dropdown.value = index;
             }
         }
+    }
+
+    void PopulateDropdowns()
+    {
+        PopulateDropdown(shapeDropdown, allProducts.Select(p => p.Shape).Distinct().ToList());
+        PopulateDropdown(materialDropdown, allProducts.Select(p => p.Material).Distinct().ToList());
+        PopulateDropdown(colorDropdown, allProducts.Select(p => p.Color).Distinct().ToList());
+        PopulateDropdown(typeDropdown, allProducts.Select(p => p.Type).Distinct().ToList());
+        PopulateDropdown(brandDropdown, allProducts.Select(p => p.Brand).Distinct().ToList());
+        PopulateDropdown(genderDropdown, allProducts.Select(p => p.Gender).Distinct().ToList());
+    }
+
+    void PopulateDropdown(TMP_Dropdown dropdown, List<string> options)
+    {
+        dropdown.ClearOptions();
+        options.Insert(0, "Alle"); 
+        dropdown.AddOptions(options);
+    }
+
+    [System.Serializable]
+    public class ProductList
+    {
+        public List<Product> products;
     }
 }
