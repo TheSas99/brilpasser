@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using System.IO;
+using System;
 
 public class ProductFilter : MonoBehaviour
 {
@@ -34,41 +35,62 @@ public class ProductFilter : MonoBehaviour
 
     IEnumerator GetProducts()
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(serverUrl))
+        // Check for internet connection
+        if (Application.internetReachability != NetworkReachability.NotReachable)
         {
-            yield return webRequest.SendWebRequest();
-
-            if (webRequest.result != UnityWebRequest.Result.Success)
+            using (UnityWebRequest webRequest = UnityWebRequest.Get(serverUrl))
             {
-                Debug.LogWarning("Failed to fetch data from server. Loading locally stored JSON data.");
-                LoadLocalJson();
+                yield return webRequest.SendWebRequest();
+
+                if (webRequest.result != UnityWebRequest.Result.Success)
+                {
+                    Debug.LogWarning("Failed to fetch data from server. Loading locally stored JSON data.");
+                    LoadLocalJson();
+                }
+                else
+                {
+                    string jsonResponse = webRequest.downloadHandler.text;
+                    ProductList productList = JsonUtility.FromJson<ProductList>(jsonResponse);
+
+                    allProducts = productList.products;
+                    SaveLocalJson(jsonResponse); // Save the JSON data to local file
+                }
             }
-            else
-            {
-                string jsonResponse = webRequest.downloadHandler.text;
-                ProductList productList = JsonUtility.FromJson<ProductList>(jsonResponse);
-
-                allProducts = productList.products;
-                SaveLocalJson(jsonResponse); // Save the JSON data to local file
-            }
-        }
-    }
-
-    void LoadLocalJson()
-    {
-        string filePath = Path.Combine(Application.streamingAssetsPath, localJsonFilePath);
-
-        if (File.Exists(filePath))
-        {
-            string json = File.ReadAllText(filePath);
-            ProductList productList = JsonUtility.FromJson<ProductList>(json);
-            allProducts = productList.products;
         }
         else
         {
-            Debug.LogError("Failed to load local JSON file: " + localJsonFilePath);
+            // No internet connection, fallback to local JSON
+            Debug.LogWarning("No internet connection. Loading locally stored JSON data.");
+            LoadLocalJson();
         }
     }
+
+
+    void LoadLocalJson()
+    {
+        string filePath = Path.Combine(Application.dataPath, localJsonFilePath);
+
+        if (File.Exists(filePath))
+        {
+            try
+            {
+                string json = File.ReadAllText(filePath);
+                Debug.Log("Loaded JSON from local file: " + json);
+                ProductList productList = JsonUtility.FromJson<ProductList>(json);
+                allProducts = productList.products;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Failed to parse local JSON file: " + localJsonFilePath);
+                Debug.LogError("Error: " + ex.Message);
+            }
+        }
+        else
+        {
+            Debug.LogError("Local JSON file not found: " + localJsonFilePath);
+        }
+    }
+
 
     void SaveLocalJson(string jsonData)
     {
