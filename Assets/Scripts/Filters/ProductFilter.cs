@@ -70,7 +70,6 @@ public class ProductFilter : MonoBehaviour
         }
     }
 
-
     void SaveLocalJson(string jsonData)
     {
         string filePath = Path.Combine(Application.dataPath, localJsonFilePath);
@@ -97,7 +96,7 @@ public class ProductFilter : MonoBehaviour
             bool colorMatch = selectedColor == "All" || selectedColor == "GEEN KEUZE" || product.Color == selectedColor;
             bool typeMatch = selectedType == "All" || selectedType == "GEEN KEUZE" || product.Type == selectedType;
             bool brandMatch = selectedBrand == "All" || selectedBrand == "GEEN KEUZE" || product.Brand == selectedBrand;
-            bool genderMatch = selectedGender == "All" || selectedGender == "GEEN KEUZE" || product.Gender == selectedGender;
+            bool genderMatch = selectedGender == "All" || selectedGender == "GEEN KEUZE" || product.Gender == selectedGender || product.Gender == "Unisex";
 
             if (shapeMatch && materialMatch && colorMatch && typeMatch && brandMatch && genderMatch)
             {
@@ -132,12 +131,10 @@ public class ProductFilter : MonoBehaviour
         }
     }
 
-
     [System.Serializable]
     public class ProductList
     {
         public List<Product> products;
     }
-
-    // Define Product class here
 }
+

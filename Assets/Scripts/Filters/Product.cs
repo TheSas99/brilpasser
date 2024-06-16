@@ -1,23 +1,36 @@
 using UnityEngine;
+using System.IO;
 
 [System.Serializable]
 public class Product
 {
-    // Map the JSON keys to the corresponding fields
-    [SerializeField] private string naam;
-    [SerializeField] private string vorm;
-    [SerializeField] private string image;
-    [SerializeField] private string materiaal;
-    [SerializeField] private string type;
-    [SerializeField] private string kleur;
-    [SerializeField] private string gender;
-    [SerializeField] private string Merknaam; // Assuming this is the brand name
-    [SerializeField] private float montuur_prijs;
+    public string naam;
+    public string vorm;
+    public string image;
+    public string materiaal;
+    public string type;
+    public string kleur;
+    public string gender;
+    public string Merknaam;
+    public float montuur_prijs;
 
     // Define properties to access the fields
     public string Name => naam;
     public string Shape => vorm;
-    public Sprite Image => Resources.Load<Sprite>("/Sprites/Images/Brillen/" + image); // Load sprite from Resources folder
+    public Sprite Image
+    {
+        get
+        {
+            string imagePath = "Sprites/Images/Brillen/" + Path.GetFileNameWithoutExtension(image);
+            Debug.Log("Loading image from path: " + imagePath);
+            Sprite loadedSprite = Resources.Load<Sprite>(imagePath);
+            if (loadedSprite == null)
+            {
+                Debug.LogError("Failed to load image: " + imagePath);
+            }
+            return loadedSprite;
+        }
+    }
     public string Material => materiaal;
     public string Type => type;
     public string Color => kleur;

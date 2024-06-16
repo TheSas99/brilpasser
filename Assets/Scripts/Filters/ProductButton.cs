@@ -18,7 +18,18 @@ public class ProductButton : MonoBehaviour
         this.uiContainer = uiContainer;
 
         productNameText.text = product.Name;
-        productImage.sprite = product.Image;
+
+        // Add a log to debug image loading
+        Debug.Log("Loading image for product: " + product.Name);
+        Sprite loadedSprite = product.Image;
+        if (loadedSprite != null)
+        {
+            productImage.sprite = loadedSprite;
+        }
+        else
+        {
+            Debug.LogError("Failed to load image for product: " + product.Name);
+        }
 
         button.onClick.AddListener(OnButtonClick);
     }
