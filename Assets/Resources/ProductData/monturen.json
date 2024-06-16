@@ -1,0 +1,43 @@
+{
+    "products": [
+        {
+            "montuur_id": "1",
+            "merk_id": "1",
+            "naam": "Puma Bril",
+            "type": "Bril",
+            "kleur": "Zwart",
+            "materiaal": "Kunststof",
+            "vorm": "Ovaal",
+            "gender": "Unisex",
+            "montuur_prijs": "75",
+            "image": "Puma_Bril_Zwart",
+            "Merknaam": "Testmerk"
+        },
+        {
+            "montuur_id": "2",
+            "merk_id": "6",
+            "naam": "Rayban 24019LE",
+            "type": "Bril",
+            "kleur": "Blauw",
+            "materiaal": "Kunststof",
+            "vorm": "Ovaal",
+            "gender": "",
+            "montuur_prijs": "137",
+            "image": "Rayban_24019LE",
+            "Merknaam": "Rayban"
+        },
+        {
+            "montuur_id": "3",
+            "merk_id": "9",
+            "naam": "Tom Tailor",
+            "type": "Bril",
+            "kleur": "Bruin",
+            "materiaal": "Metaal",
+            "vorm": "Ovaal",
+            "gender": "",
+            "montuur_prijs": "95",
+            "image": "Tom_Tailor",
+            "Merknaam": "Tom Tailor"
+        }
+    ]
+}
