@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using System.IO;
+using System.Linq;
 using System;
 
 public class ProductFilter : MonoBehaviour
@@ -24,6 +25,13 @@ public class ProductFilter : MonoBehaviour
 
     public List<Product> allProducts = new List<Product>();
     private List<Product> filteredProducts = new List<Product>();
+
+    private const string ShapePrefKey = "ShapeFilter";
+    private const string MaterialPrefKey = "MaterialFilter";
+    private const string ColorPrefKey = "ColorFilter";
+    private const string TypePrefKey = "TypeFilter";
+    private const string BrandPrefKey = "BrandFilter";
+    private const string GenderPrefKey = "GenderFilter";
 
     private const string serverUrl = "http://localhost/brilpasser-backend/unity/getMonturen.php/"; // URL to your server-side script
     private const string localJsonFilePath = "Resources/ProductData/monturen.json"; // Path to the locally stored JSON file
@@ -55,6 +63,7 @@ public class ProductFilter : MonoBehaviour
 
                     allProducts = productList.products;
                     SaveLocalJson(jsonResponse); // Save the JSON data to local file
+                    PopulateDropdowns(); // Populate dropdowns with JSON data
                 }
             }
         }
@@ -65,7 +74,6 @@ public class ProductFilter : MonoBehaviour
             LoadLocalJson();
         }
     }
-
 
     void LoadLocalJson()
     {
@@ -79,6 +87,7 @@ public class ProductFilter : MonoBehaviour
                 Debug.Log("Loaded JSON from local file: " + json);
                 ProductList productList = JsonUtility.FromJson<ProductList>(json);
                 allProducts = productList.products;
+                PopulateDropdowns(); // Populate dropdowns with JSON data
             }
             catch (Exception ex)
             {
@@ -91,7 +100,6 @@ public class ProductFilter : MonoBehaviour
             Debug.LogError("Local JSON file not found: " + localJsonFilePath);
         }
     }
-
 
     void SaveLocalJson(string jsonData)
     {
@@ -114,12 +122,12 @@ public class ProductFilter : MonoBehaviour
 
         foreach (var product in allProducts)
         {
-            bool shapeMatch = selectedShape == "All" || selectedShape == "GEEN KEUZE" || product.Shape == selectedShape;
-            bool materialMatch = selectedMaterial == "All" || selectedMaterial == "GEEN KEUZE" || product.Material == selectedMaterial;
-            bool colorMatch = selectedColor == "All" || selectedColor == "GEEN KEUZE" || product.Color == selectedColor;
-            bool typeMatch = selectedType == "All" || selectedType == "GEEN KEUZE" || product.Type == selectedType;
-            bool brandMatch = selectedBrand == "All" || selectedBrand == "GEEN KEUZE" || product.Brand == selectedBrand;
-            bool genderMatch = selectedGender == "All" || selectedGender == "GEEN KEUZE" || product.Gender == selectedGender || product.Gender == "Unisex";
+            bool shapeMatch = selectedShape == "Alle" || product.Shape == selectedShape;
+            bool materialMatch = selectedMaterial == "Alle" || product.Material == selectedMaterial;
+            bool colorMatch = selectedColor == "Alle" || product.Color == selectedColor;
+            bool typeMatch = selectedType == "Alle" ||  product.Type == selectedType;
+            bool brandMatch = selectedBrand == "Alle" || product.Brand == selectedBrand;
+            bool genderMatch = selectedGender == "Alle" || product.Gender == selectedGender || product.Gender == "Unisex";
 
             if (shapeMatch && materialMatch && colorMatch && typeMatch && brandMatch && genderMatch)
             {
@@ -137,8 +145,9 @@ public class ProductFilter : MonoBehaviour
         {
             HideNoResultsMessage();
         }
-    }
 
+        SaveFilters(selectedShape, selectedMaterial, selectedColor, selectedType, selectedBrand, selectedGender); // Save filter settings after applying filters
+    }
 
     void ShowNoResultsMessage()
     {
@@ -149,7 +158,6 @@ public class ProductFilter : MonoBehaviour
     {
         NoResultsMessage.SetActive(false);
     }
-
 
     void UpdateProductDisplay()
     {
@@ -186,10 +194,60 @@ public class ProductFilter : MonoBehaviour
         }
     }
 
+    void SaveFilters(string shape, string material, string color, string type, string brand, string gender)
+    {
+        PlayerPrefs.SetString(ShapePrefKey, shape);
+        PlayerPrefs.SetString(MaterialPrefKey, material);
+        PlayerPrefs.SetString(ColorPrefKey, color);
+        PlayerPrefs.SetString(TypePrefKey, type);
+        PlayerPrefs.SetString(BrandPrefKey, brand);
+        PlayerPrefs.SetString(GenderPrefKey, gender);
+        PlayerPrefs.Save(); // Save PlayerPrefs after setting values
+    }
+
+    void LoadFilters()
+    {
+        SetDropdownValue(shapeDropdown, ShapePrefKey);
+        SetDropdownValue(materialDropdown, MaterialPrefKey);
+        SetDropdownValue(colorDropdown, ColorPrefKey);
+        SetDropdownValue(typeDropdown, TypePrefKey);
+        SetDropdownValue(brandDropdown, BrandPrefKey);
+        SetDropdownValue(genderDropdown, GenderPrefKey);
+    }
+
+    void SetDropdownValue(TMP_Dropdown dropdown, string prefKey)
+    {
+        if (PlayerPrefs.HasKey(prefKey))
+        {
+            string savedValue = PlayerPrefs.GetString(prefKey);
+            int index = dropdown.options.FindIndex(option => option.text == savedValue);
+            if (index >= 0)
+            {
+                dropdown.value = index;
+            }
+        }
+    }
+
+    void PopulateDropdowns()
+    {
+        PopulateDropdown(shapeDropdown, allProducts.Select(p => p.Shape).Distinct().ToList());
+        PopulateDropdown(materialDropdown, allProducts.Select(p => p.Material).Distinct().ToList());
+        PopulateDropdown(colorDropdown, allProducts.Select(p => p.Color).Distinct().ToList());
+        PopulateDropdown(typeDropdown, allProducts.Select(p => p.Type).Distinct().ToList());
+        PopulateDropdown(brandDropdown, allProducts.Select(p => p.Brand).Distinct().ToList());
+        PopulateDropdown(genderDropdown, allProducts.Select(p => p.Gender).Distinct().ToList());
+    }
+
+    void PopulateDropdown(TMP_Dropdown dropdown, List<string> options)
+    {
+        dropdown.ClearOptions();
+        options.Insert(0, "Alle"); 
+        dropdown.AddOptions(options);
+    }
+
     [System.Serializable]
     public class ProductList
     {
         public List<Product> products;
     }
 }
-
