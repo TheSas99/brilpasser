@@ -8,7 +8,7 @@ using System;
 
 public class GlassesDropdown : MonoBehaviour
 {
-    public string phpScriptURL = "http://localhost/brilpasser-backend/unity/getBrillenglazen.php";
+    public string phpScriptURL = "https://thunderleafstudios.nl/brilpasser-backend/unity/getBrillenglazen.php";
     public TMP_InputField leftEyeStrengthInputField;
     public TMP_InputField rightEyeStrengthInputField;
     public TMP_Dropdown leftEyeDropdown;

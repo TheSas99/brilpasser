@@ -33,7 +33,7 @@ public class ProductFilter : MonoBehaviour
     private const string BrandPrefKey = "BrandFilter";
     private const string GenderPrefKey = "GenderFilter";
 
-    private const string serverUrl = "http://localhost/brilpasser-backend/unity/getMonturen.php/";
+    private const string serverUrl = "https://thunderleafstudios.nl/brilpasser-backend/unity/getMonturen.php";
     private const string localJsonFilePath = "Resources/ProductData/monturen.json";
 
     void Start()
