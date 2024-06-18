@@ -40,6 +40,9 @@ public class GlassesDropdown : MonoBehaviour
         foreach (GlassesProduct product in products)
         {
             options.Add(new TMP_Dropdown.OptionData(product.glasnaam + " - " + product.glasprijs.ToString("C")));
+
+            // Store the product name and price in PlayerPrefs
+            PlayerPrefs.SetString(product.glasnaam, product.glasprijs.ToString());
         }
 
         dropdown.options = options;
@@ -47,8 +50,12 @@ public class GlassesDropdown : MonoBehaviour
 
     public void OnDropdownValueChanged(int index)
     {
-        Debug.Log("Selected glasses: " + leftEyeDropdown.options[index].text);
-        Debug.Log("Selected glasses: " + rightEyeDropdown.options[index].text);
+        // Save the selected glasses name and price when the dropdown value changes
+        string leftEyeSelection = leftEyeDropdown.options[leftEyeDropdown.value].text;
+        PlayerPrefs.SetString("LeftEyeGlasses", leftEyeSelection);
+
+        string rightEyeSelection = rightEyeDropdown.options[rightEyeDropdown.value].text;
+        PlayerPrefs.SetString("RightEyeGlasses", rightEyeSelection);
     }
 
     public void OnSaveButtonClick()
