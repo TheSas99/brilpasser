@@ -240,9 +240,16 @@ public class ProductFilter : MonoBehaviour
 
     void PopulateDropdown(TMP_Dropdown dropdown, List<string> options)
     {
-        dropdown.ClearOptions();
-        options.Insert(0, "Alle"); 
-        dropdown.AddOptions(options);
+        if (dropdown != null)
+        {
+            dropdown.ClearOptions();
+            options.Insert(0, "Alle");
+            dropdown.AddOptions(options);
+        }
+        else
+        {
+            Debug.LogError("Dropdown reference is null.");
+        }
     }
 
     [System.Serializable]

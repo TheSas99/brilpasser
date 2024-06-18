@@ -752,7 +752,7 @@ GameObject:
   - component: {fileID: 256082354}
   - component: {fileID: 256082353}
   m_Layer: 5
-  m_Name: InputField (TMP)
+  m_Name: InputField_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -923,6 +923,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 314088970}
+  - component: {fileID: 314088971}
   m_Layer: 5
   m_Name: OptionBoxes
   m_TagString: Untagged
@@ -951,6 +952,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &314088971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314088969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d83713cac27605f47aebaec041f970cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phpScriptURL: http://localhost/brilpasser-backend/unity/getBrillenglazen.php
+  leftEyeStrengthInputField: {fileID: 256082353}
+  rightEyeStrengthInputField: {fileID: 348977088}
+  leftEyeDropdown: {fileID: 1967186491}
+  rightEyeDropdown: {fileID: 2140526834}
 --- !u!1 &326103607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,7 +1184,7 @@ GameObject:
   - component: {fileID: 348977089}
   - component: {fileID: 348977088}
   m_Layer: 5
-  m_Name: InputField (TMP) (1)
+  m_Name: InputField_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1536,7 +1554,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 378348143}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 314088971}
+        m_TargetAssemblyTypeName: GlassesDropdown, Assembly-CSharp
+        m_MethodName: OnSaveButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &378348143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3562,65 +3592,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1111861067}
   m_CullTransparentMesh: 1
---- !u!1 &1201977444
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1201977445}
-  - component: {fileID: 1201977446}
-  m_Layer: 0
-  m_Name: FilterManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1201977445
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1201977444}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 551.7511, y: 1403.6511, z: 99.13849}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1201977446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1201977444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fd3a9d3686861348a69d475c1f5bafe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shapeDropdown: {fileID: 0}
-  materialDropdown: {fileID: 0}
-  colorDropdown: {fileID: 0}
-  typeDropdown: {fileID: 0}
-  brandDropdown: {fileID: 0}
-  genderDropdown: {fileID: 0}
-  applyFilterButton: {fileID: 378348142}
-  productPrefab: {fileID: 2605232327759499081, guid: dbbb6de1896aaab43880cce739c26157,
-    type: 3}
-  productContainer: {fileID: 0}
-  productUIPrefab: {fileID: 2605232327759499081, guid: 664ad6685d74ed64ca4d7f8ff5f2858c,
-    type: 3}
-  uiContainer: {fileID: 194882162}
-  NoResultsMessage: {fileID: 0}
-  allProducts: []
 --- !u!1 &1210357872
 GameObject:
   m_ObjectHideFlags: 0
@@ -4740,11 +4711,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 194882162}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 85, y: 570}
-  m_SizeDelta: {x: 822.6923, y: 300}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 116}
+  m_SizeDelta: {x: 822.6924, y: 300}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1868766310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4799,7 +4770,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -5289,11 +5260,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 194882162}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 85, y: 483}
-  m_SizeDelta: {x: 609.6855, y: 300}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 609.68555, y: 300}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2041717554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5665,4 +5636,3 @@ SceneRoots:
   - {fileID: 965205621}
   - {fileID: 194882162}
   - {fileID: 1416444675}
-  - {fileID: 1201977445}

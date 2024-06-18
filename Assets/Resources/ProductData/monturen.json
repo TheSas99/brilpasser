@@ -47,7 +47,7 @@
             "kleur": "Bruin",
             "materiaal": "Metaal",
             "vorm": "Rond",
-            "gender": "",
+            "gender": "Unisex",
             "montuur_prijs": "113",
             "image": "KYO98E",
             "Merknaam": "Testmerk"
@@ -56,7 +56,7 @@
             "montuur_id": "5",
             "merk_id": "1",
             "naam": "Product 2",
-            "type": "Metaal",
+            "type": "Bril",
             "kleur": "Bruin",
             "materiaal": "Metaal",
             "vorm": "Ovaal",
