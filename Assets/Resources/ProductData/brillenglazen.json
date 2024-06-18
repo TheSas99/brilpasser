@@ -1,0 +1,10 @@
+{
+    "products": [
+        {
+            "glas_id": 1,
+            "glasnaam": "Hilux 1.50",
+            "sterkte": "-4.00",
+            "glasprijs": "25,00"
+        }
+    ]
+}
