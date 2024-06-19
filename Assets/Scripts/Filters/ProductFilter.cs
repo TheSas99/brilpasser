@@ -34,11 +34,19 @@ public class ProductFilter : MonoBehaviour
     private const string GenderPrefKey = "GenderFilter";
 
     private const string serverUrl = "https://thunderleafstudios.nl/brilpasser-backend/unity/getMonturen.php";
-    private const string localJsonFilePath = "Resources/ProductData/monturen.json";
+
+    private string localJsonFilePath;
 
     void Start()
     {
         applyFilterButton.onClick.AddListener(ApplyFilters);
+
+#if UNITY_EDITOR
+        localJsonFilePath = Path.Combine(Application.dataPath, "Resources/ProductData/monturen.json");
+#elif UNITY_ANDROID
+        localJsonFilePath = Path.Combine(Application.persistentDataPath, "monturen.json");
+#endif
+
         StartCoroutine(GetProducts());
     }
 
@@ -77,13 +85,11 @@ public class ProductFilter : MonoBehaviour
 
     void LoadLocalJson()
     {
-        string filePath = Path.Combine(Application.dataPath, localJsonFilePath);
-
-        if (File.Exists(filePath))
+        if (File.Exists(localJsonFilePath))
         {
             try
             {
-                string json = File.ReadAllText(filePath);
+                string json = File.ReadAllText(localJsonFilePath);
                 Debug.Log("Loaded JSON from local file: " + json);
                 ProductList productList = JsonUtility.FromJson<ProductList>(json);
                 allProducts = productList.products;
@@ -103,9 +109,8 @@ public class ProductFilter : MonoBehaviour
 
     void SaveLocalJson(string jsonData)
     {
-        string filePath = Path.Combine(Application.dataPath, localJsonFilePath);
-        Debug.Log(filePath);
-        File.WriteAllText(filePath, jsonData);
+        Debug.Log(localJsonFilePath);
+        File.WriteAllText(localJsonFilePath, jsonData);
         Debug.Log("Local JSON file updated.");
     }
 
@@ -125,7 +130,7 @@ public class ProductFilter : MonoBehaviour
             bool shapeMatch = selectedShape == "Alle" || product.Shape == selectedShape;
             bool materialMatch = selectedMaterial == "Alle" || product.Material == selectedMaterial;
             bool colorMatch = selectedColor == "Alle" || product.Color == selectedColor;
-            bool typeMatch = selectedType == "Alle" ||  product.Type == selectedType;
+            bool typeMatch = selectedType == "Alle" || product.Type == selectedType;
             bool brandMatch = selectedBrand == "Alle" || product.Brand == selectedBrand;
             bool genderMatch = selectedGender == "Alle" || product.Gender == selectedGender || product.Gender == "Unisex";
 

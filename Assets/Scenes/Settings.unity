@@ -716,7 +716,6 @@ RectTransform:
   - {fileID: 245457008}
   - {fileID: 556889001}
   - {fileID: 378348141}
-  - {fileID: 1959412279}
   - {fileID: 326103608}
   - {fileID: 314088970}
   - {fileID: 697662373}
@@ -1079,6 +1078,7 @@ RectTransform:
   m_Children:
   - {fileID: 1967186490}
   - {fileID: 2140526833}
+  - {fileID: 1959412279}
   m_Father: {fileID: 194882162}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1098,7 +1098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d83713cac27605f47aebaec041f970cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  phpScriptURL: http://localhost/brilpasser-backend/unity/getBrillenglazen.php
+  phpScriptURL: https://thunderleafstudios.nl/brilpasser-backend/unity/getBrillenglazen.php
   leftEyeStrengthInputField: {fileID: 256082353}
   rightEyeStrengthInputField: {fileID: 348977088}
   leftEyeDropdown: {fileID: 1967186491}
@@ -5151,13 +5151,13 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 66199409}
-  m_Father: {fileID: 194882162}
+  m_Father: {fileID: 314088970}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -32, y: -1142}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: -236}
   m_SizeDelta: {x: 300, y: 150}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1959412280
 MonoBehaviour:
   m_ObjectHideFlags: 0

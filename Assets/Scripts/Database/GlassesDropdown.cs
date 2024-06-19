@@ -14,13 +14,36 @@ public class GlassesDropdown : MonoBehaviour
     public TMP_Dropdown leftEyeDropdown;
     public TMP_Dropdown rightEyeDropdown;
 
-    private const string localJsonFilePath = "Resources/ProductData/brillenglazen.json";
+    private string localJsonFilePath;
+
+    void Start()
+    {
+        // Use different paths for Unity Editor and Android
+#if UNITY_EDITOR
+        localJsonFilePath = Path.Combine(Application.dataPath, "Resources/ProductData/brillenglazen.json");
+#elif UNITY_ANDROID
+        localJsonFilePath = Path.Combine(Application.persistentDataPath, "brillenglazen.json");
+#endif
+
+        string savedLeftEyeStrength = PlayerPrefs.GetString("LeftEyeStrength", "");
+        string savedRightEyeStrength = PlayerPrefs.GetString("RightEyeStrength", "");
+
+        if (!string.IsNullOrEmpty(savedLeftEyeStrength) && !string.IsNullOrEmpty(savedRightEyeStrength))
+        {
+            leftEyeStrengthInputField.text = savedLeftEyeStrength;
+            rightEyeStrengthInputField.text = savedRightEyeStrength;
+
+            StartCoroutine(GetGlassesData(savedLeftEyeStrength, leftEyeDropdown));
+            StartCoroutine(GetGlassesData(savedRightEyeStrength, rightEyeDropdown));
+        }
+    }
 
     IEnumerator GetGlassesData(string strength, TMP_Dropdown dropdown)
     {
         if (Application.internetReachability != NetworkReachability.NotReachable)
         {
             string url = phpScriptURL + "?sterkte=" + strength;
+            Debug.Log(url);
             UnityWebRequest www = UnityWebRequest.Get(url);
 
             yield return www.SendWebRequest();
@@ -46,13 +69,11 @@ public class GlassesDropdown : MonoBehaviour
 
     void LoadLocalJson(string strength, TMP_Dropdown dropdown)
     {
-        string filePath = Path.Combine(Application.dataPath, localJsonFilePath);
-
-        if (File.Exists(filePath))
+        if (File.Exists(localJsonFilePath))
         {
             try
             {
-                string json = File.ReadAllText(filePath);
+                string json = File.ReadAllText(localJsonFilePath);
                 ProcessGlassesData(json, dropdown);
             }
             catch (Exception ex)
@@ -68,9 +89,8 @@ public class GlassesDropdown : MonoBehaviour
 
     void SaveLocalJson(string jsonData)
     {
-        string filePath = Path.Combine(Application.dataPath, localJsonFilePath);
-        File.WriteAllText(filePath, jsonData);
-        Debug.Log("Local JSON file updated.");
+        File.WriteAllText(localJsonFilePath, jsonData);
+        Debug.Log("Local JSON file updated at: " + localJsonFilePath);
     }
 
     void ProcessGlassesData(string jsonResponse, TMP_Dropdown dropdown)
@@ -127,21 +147,6 @@ public class GlassesDropdown : MonoBehaviour
         else
         {
             Debug.LogWarning("Please enter eye strengths before saving.");
-        }
-    }
-
-    void Start()
-    {
-        string savedLeftEyeStrength = PlayerPrefs.GetString("LeftEyeStrength", "");
-        string savedRightEyeStrength = PlayerPrefs.GetString("RightEyeStrength", "");
-
-        if (!string.IsNullOrEmpty(savedLeftEyeStrength) && !string.IsNullOrEmpty(savedRightEyeStrength))
-        {
-            leftEyeStrengthInputField.text = savedLeftEyeStrength;
-            rightEyeStrengthInputField.text = savedRightEyeStrength;
-
-            StartCoroutine(GetGlassesData(savedLeftEyeStrength, leftEyeDropdown));
-            StartCoroutine(GetGlassesData(savedRightEyeStrength, rightEyeDropdown));
         }
     }
 }
