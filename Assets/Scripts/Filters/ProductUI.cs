@@ -18,7 +18,6 @@ public class ProductUI : MonoBehaviour
     void Start()
     {
         closeButton.onClick.AddListener(ClosePanel);
-        continueButton.onClick.AddListener(StartEyeWearFitting);
     }
 
     public void Setup(Product product)
@@ -26,10 +25,25 @@ public class ProductUI : MonoBehaviour
         productNameText.text = product.Name;
         productShapeText.text = product.Shape;
         productMaterialText.text = product.Material;
-        productPriceText.text = "€" + product.Price.ToString();
+        productPriceText.text = "€" + product.Price.ToString("F2");
         productTypeText.text = product.Type;
         productColorText.text = product.Color;
         productImage.sprite = product.Image;
+
+        Debug.Log("IsPasbaar: " + product.IsPasbaar);
+
+        // Check if the product is pasbaar
+        if (product.IsPasbaar)
+        {
+            Debug.Log("Setting continueButton active");
+            continueButton.gameObject.SetActive(true);
+            continueButton.onClick.AddListener(StartEyeWearFitting);
+        }
+        else
+        {
+            Debug.Log("Setting continueButton inactive");
+            continueButton.gameObject.SetActive(false);
+        }
     }
 
     void ClosePanel()
@@ -48,6 +62,4 @@ public class ProductUI : MonoBehaviour
         // Load the next scene
         SceneManager.LoadScene("BrilChecker");
     }
-
-
 }

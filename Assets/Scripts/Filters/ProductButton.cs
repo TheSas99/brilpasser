@@ -36,8 +36,7 @@ public class ProductButton : MonoBehaviour
 
     void OnButtonClick()
     {
-        GameObject productUIGO = Instantiate(productUIPrefab);
-        productUIGO.transform.SetParent(uiContainer, false);
+        GameObject productUIGO = Instantiate(productUIPrefab, uiContainer);
         ProductUI productUI = productUIGO.GetComponent<ProductUI>();
 
         if (productUI != null)
