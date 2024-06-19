@@ -21,7 +21,8 @@ public class Product
     {
         get
         {
-            string imagePath = "Sprites/Images/Brillen/" + Path.GetFileNameWithoutExtension(image);
+            string fileName = Path.GetFileName(image);
+            string imagePath = "Sprites/Images/Brillen/" + Path.GetFileNameWithoutExtension(fileName);
             Debug.Log("Loading image from path: " + imagePath);
             Sprite loadedSprite = Resources.Load<Sprite>(imagePath);
             if (loadedSprite == null)
