@@ -11,19 +11,21 @@
             "gender": "Unisex",
             "montuur_prijs": "75",
             "image": "..\/uploads\/Puma Bril.png",
+            "is_pasbaar": "1",
             "Merknaam": "Puma"
         },
         {
             "montuur_id": "2",
             "merk_id": "6",
-            "naam": "Rayban 24019LE",
+            "naam": "24019LE",
             "type": "Bril",
             "kleur": "Blauw",
             "materiaal": "Kunststof",
             "vorm": "Ovaal",
             "gender": "Mannen",
             "montuur_prijs": "137",
-            "image": "Rayban_24019LE",
+            "image": "..\/uploads\/24019LE.png",
+            "is_pasbaar": "0",
             "Merknaam": "Rayban"
         },
         {
@@ -36,7 +38,8 @@
             "vorm": "Ovaal",
             "gender": "Vrouwen",
             "montuur_prijs": "95",
-            "image": "Tom_Tailor",
+            "image": "..\/uploads\/Tom Tailor.png",
+            "is_pasbaar": "0",
             "Merknaam": "Tom Tailor"
         },
         {
@@ -49,7 +52,8 @@
             "vorm": "Rond",
             "gender": "Unisex",
             "montuur_prijs": "113",
-            "image": "KYO98E",
+            "image": "..\/uploads\/KYO98E.png",
+            "is_pasbaar": "0",
             "Merknaam": "Testmerk"
         },
         {
@@ -61,9 +65,24 @@
             "materiaal": "Metaal",
             "vorm": "Vijfhoek",
             "gender": "Vrouwen",
-            "montuur_prijs": "50",
-            "image": "PRODUCT_2",
+            "montuur_prijs": "75",
+            "image": "..\/uploads\/Product 2.png",
+            "is_pasbaar": "0",
             "Merknaam": "Testmerk"
+        },
+        {
+            "montuur_id": "6",
+            "merk_id": "6",
+            "naam": "2314Z10911",
+            "type": "Zonnebril",
+            "kleur": "Rood",
+            "materiaal": "Kunststof",
+            "vorm": "Ovaal",
+            "gender": "Vrouwen",
+            "montuur_prijs": "237",
+            "image": "..\/uploads\/2314Z10911.png",
+            "is_pasbaar": "0",
+            "Merknaam": "Rayban"
         }
     ]
 }

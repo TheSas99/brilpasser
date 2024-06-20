@@ -12,9 +12,9 @@ public class Product
     public string kleur;
     public string gender;
     public string Merknaam;
+    public bool is_pasbaar; // Assuming this is a bool
     public float montuur_prijs;
 
-    // Define properties to access the fields
     public string Name => naam;
     public string Shape => vorm;
     public Sprite Image
@@ -38,4 +38,5 @@ public class Product
     public string Gender => gender;
     public string Brand => Merknaam;
     public float Price => montuur_prijs;
+    public bool IsPasbaar => is_pasbaar;
 }
