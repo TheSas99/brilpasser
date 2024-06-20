@@ -5,6 +5,24 @@
             "glasnaam": "Hilux 1.50",
             "sterkte": "-4.00",
             "glasprijs": "25,00"
+        },
+        {
+            "glas_id": 4,
+            "glasnaam": "Hilux Eyas 1.60",
+            "sterkte": "-4.00",
+            "glasprijs": "30,00"
+        },
+        {
+            "glas_id": 6,
+            "glasnaam": "Nulux Eynoa 1.67",
+            "sterkte": "-4.00",
+            "glasprijs": "32,50"
+        },
+        {
+            "glas_id": 8,
+            "glasnaam": "Nulux EP Eyvia",
+            "sterkte": "-4.00",
+            "glasprijs": "42,50"
         }
     ]
 }
