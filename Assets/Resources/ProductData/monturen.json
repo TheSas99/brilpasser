@@ -11,7 +11,7 @@
             "gender": "Unisex",
             "montuur_prijs": "75",
             "image": "..\/uploads\/Puma Bril.png",
-            "is_pasbaar": "1",
+            "is_pasbaar": "0",
             "Merknaam": "Puma"
         },
         {
@@ -39,7 +39,7 @@
             "gender": "Vrouwen",
             "montuur_prijs": "95",
             "image": "..\/uploads\/Tom Tailor.png",
-            "is_pasbaar": "1",
+            "is_pasbaar": "0",
             "Merknaam": "Tom Tailor"
         },
         {

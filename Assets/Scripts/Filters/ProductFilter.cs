@@ -37,6 +37,7 @@ public class ProductFilter : MonoBehaviour
     private const string TypePrefKey = "TypeFilter";
     private const string BrandPrefKey = "BrandFilter";
     private const string GenderPrefKey = "GenderFilter";
+    private const string SelectedProductNamesKey = "SelectedProductNames";
 
     private const string serverUrl = "https://thunderleafstudios.nl/brilpasser-backend/unity/getMonturen.php";
     private string localJsonFilePath;
@@ -287,12 +288,21 @@ public class ProductFilter : MonoBehaviour
 
         // Store selected product names in PlayerPrefs
         string selectedProductNames = string.Join(",", selectedProducts.ToArray());
-        PlayerPrefs.SetString("SelectedProductNames", selectedProductNames);
+        PlayerPrefs.SetString(SelectedProductNamesKey, selectedProductNames);
         PlayerPrefs.Save();
 
         // Load BrilChecker scene
         SceneManager.LoadScene("BrilChecker");
     }
+
+    // Method to delete selected product names from PlayerPrefs
+    public void DeleteSelectedProductNames()
+    {
+        PlayerPrefs.DeleteKey(SelectedProductNamesKey);
+        PlayerPrefs.Save();
+        Debug.Log("Deleted SelectedProductNames from PlayerPrefs.");
+    }
+
 
     [System.Serializable]
     public class ProductList
