@@ -51,6 +51,24 @@ public class ProductUI : MonoBehaviour
         Destroy(gameObject);
     }
 
+    // Method to clear selected product names from PlayerPrefs
+    void ClearSelectedProductNames()
+    {
+        PlayerPrefs.DeleteKey("SelectedProductNames");
+        PlayerPrefs.Save();
+        Debug.Log("Deleted SelectedProductNames from PlayerPrefs.");
+    }
+
+    void OnDisable()
+    {
+        ClearSelectedProductNames();
+    }
+
+    void OnDestroy()
+    {
+        ClearSelectedProductNames();
+    }
+
     void StartEyeWearFitting()
     {
         // Get the selected product name

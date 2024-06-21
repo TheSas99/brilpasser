@@ -52,4 +52,22 @@ public class ProductSwitchManager : MonoBehaviour
         }
         // No need to instantiate buttons if only one or no products are selected
     }
+
+    // Method to clear selected product names from PlayerPrefs
+    void ClearSelectedProductNames()
+    {
+        PlayerPrefs.DeleteKey("SelectedProductNames");
+        PlayerPrefs.Save();
+        Debug.Log("Deleted SelectedProductNames from PlayerPrefs.");
+    }
+
+    void OnDisable()
+    {
+        ClearSelectedProductNames();
+    }
+
+    void OnDestroy()
+    {
+        ClearSelectedProductNames();
+    }
 }
