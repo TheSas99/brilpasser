@@ -11,7 +11,7 @@
             "gender": "Unisex",
             "montuur_prijs": "75",
             "image": "..\/uploads\/Puma Bril.png",
-            "is_pasbaar": "1",
+            "is_pasbaar": "0",
             "Merknaam": "Puma"
         },
         {
@@ -25,7 +25,7 @@
             "gender": "Mannen",
             "montuur_prijs": "137",
             "image": "..\/uploads\/24019LE.png",
-            "is_pasbaar": "0",
+            "is_pasbaar": "1",
             "Merknaam": "Rayban"
         },
         {
@@ -53,7 +53,7 @@
             "gender": "Unisex",
             "montuur_prijs": "113",
             "image": "..\/uploads\/KYO98E.png",
-            "is_pasbaar": "0",
+            "is_pasbaar": "1",
             "Merknaam": "Testmerk"
         },
         {
@@ -67,7 +67,7 @@
             "gender": "Vrouwen",
             "montuur_prijs": "75",
             "image": "..\/uploads\/Product 2.png",
-            "is_pasbaar": "0",
+            "is_pasbaar": "1",
             "Merknaam": "Testmerk"
         },
         {
@@ -81,7 +81,7 @@
             "gender": "Vrouwen",
             "montuur_prijs": "237",
             "image": "..\/uploads\/2314Z10911.png",
-            "is_pasbaar": "0",
+            "is_pasbaar": "1",
             "Merknaam": "Rayban"
         }
     ]

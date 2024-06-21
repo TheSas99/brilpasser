@@ -1,15 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.IO;
 using System.Linq;
-using System;
 
 public class ProductFilter : MonoBehaviour
 {
+    public static ProductFilter Instance { get; private set; } // Singleton instance
+
+    // Dropdowns
     public TMP_Dropdown shapeDropdown;
     public TMP_Dropdown materialDropdown;
     public TMP_Dropdown colorDropdown;
@@ -17,6 +21,7 @@ public class ProductFilter : MonoBehaviour
     public TMP_Dropdown brandDropdown;
     public TMP_Dropdown genderDropdown;
     public Button applyFilterButton;
+    public Button goToBrilCheckerButton; // Button to go to BrilChecker scene
     public GameObject productPrefab;
     public Transform productContainer;
     public GameObject productUIPrefab;
@@ -32,14 +37,23 @@ public class ProductFilter : MonoBehaviour
     private const string TypePrefKey = "TypeFilter";
     private const string BrandPrefKey = "BrandFilter";
     private const string GenderPrefKey = "GenderFilter";
+    private const string SelectedProductNamesKey = "SelectedProductNames";
 
     private const string serverUrl = "https://thunderleafstudios.nl/brilpasser-backend/unity/getMonturen.php";
-
     private string localJsonFilePath;
+
+    // UI for selected items
+    public TextMeshProUGUI selectedItemsText;
+
+    void Awake()
+    {
+        Instance = this; // Assign instance in Awake
+    }
 
     void Start()
     {
         applyFilterButton.onClick.AddListener(ApplyFilters);
+        goToBrilCheckerButton.onClick.AddListener(GoToBrilChecker); // Add listener for Go to BrilChecker button
 
 #if UNITY_EDITOR
         localJsonFilePath = Path.Combine(Application.dataPath, "Resources/ProductData/monturen.json");
@@ -109,7 +123,6 @@ public class ProductFilter : MonoBehaviour
 
     void SaveLocalJson(string jsonData)
     {
-        Debug.Log(localJsonFilePath);
         File.WriteAllText(localJsonFilePath, jsonData);
         Debug.Log("Local JSON file updated.");
     }
@@ -256,6 +269,40 @@ public class ProductFilter : MonoBehaviour
             Debug.LogError("Dropdown reference is null.");
         }
     }
+
+    // Method to update UI with selected items
+    public void UpdateSelectedItemsText(List<string> selectedItems)
+    {
+        selectedItemsText.text = "Geselecteerd: " + string.Join(", ", selectedItems.ToArray());
+    }
+
+    // Method to go to BrilChecker scene with selected products
+    void GoToBrilChecker()
+    {
+        // Gather selected product names
+        List<string> selectedProducts = new List<string>();
+        foreach (var productButton in ProductButton.selectedButtons)
+        {
+            selectedProducts.Add(productButton.productNameText.text);
+        }
+
+        // Store selected product names in PlayerPrefs
+        string selectedProductNames = string.Join(",", selectedProducts.ToArray());
+        PlayerPrefs.SetString(SelectedProductNamesKey, selectedProductNames);
+        PlayerPrefs.Save();
+
+        // Load BrilChecker scene
+        SceneManager.LoadScene("BrilChecker");
+    }
+
+    // Method to delete selected product names from PlayerPrefs
+    public void DeleteSelectedProductNames()
+    {
+        PlayerPrefs.DeleteKey(SelectedProductNamesKey);
+        PlayerPrefs.Save();
+        Debug.Log("Deleted SelectedProductNames from PlayerPrefs.");
+    }
+
 
     [System.Serializable]
     public class ProductList

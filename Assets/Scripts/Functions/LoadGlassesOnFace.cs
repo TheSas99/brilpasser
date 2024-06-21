@@ -5,40 +5,23 @@ using UnityEngine.XR.ARFoundation;
 [RequireComponent(typeof(ARFace))]
 public class LoadGlassesOnFace : MonoBehaviour
 {
-    public GameObject glassesPrefab; 
-    public GameObject glassesContainer; 
-    public float glassesScaleFactor = 1.0f; 
+    public GameObject glassesPrefab;
+    public GameObject glassesContainer;
+    public float glassesScaleFactor = 1.0f;
 
-    private ARFace arFace; 
+    private ARFace arFace;
     private ARFaceLandmarks landmarks;
+    private SpriteRenderer glassesRenderer;
+    private GameObject currentGlassesObject; // Track the instantiated glasses prefab
 
     void Start()
     {
-        arFace = GetComponent<ARFace>(); 
-
-        if (arFace == null)
-        {
-            Debug.LogError("ARFace component not found.");
-            return;
-        }
-
-        landmarks = GetComponent<ARFaceLandmarks>(); 
-
-        if (landmarks == null)
-        {
-            Debug.LogError("ARFaceLandmarks component not found.");
-            return;
-        }
+        arFace = GetComponent<ARFace>();
+        landmarks = GetComponent<ARFaceLandmarks>();
 
         if (glassesContainer == null)
         {
             Debug.LogError("GlassesContainer is not assigned.");
-            return;
-        }
-
-        if (glassesPrefab == null)
-        {
-            Debug.LogError("GlassesPrefab is not assigned.");
             return;
         }
 
@@ -53,6 +36,11 @@ public class LoadGlassesOnFace : MonoBehaviour
             yield return null;
         }
 
+        UpdateGlassesSprite();
+    }
+
+    public void UpdateGlassesSprite()
+    {
         string selectedGlasses = PlayerPrefs.GetString("SelectedProductName", "DefaultGlasses");
         Sprite glassesSprite = Resources.Load<Sprite>("Sprites/Images/Brillen/" + selectedGlasses);
 
@@ -60,25 +48,32 @@ public class LoadGlassesOnFace : MonoBehaviour
         {
             Debug.Log("Glasses sprite loaded successfully: " + selectedGlasses);
 
+            // Destroy previous glasses object if exists
+            if (currentGlassesObject != null)
+            {
+                Destroy(currentGlassesObject);
+            }
+
             Vector3 leftEyePosition = landmarks.leftEye.position;
             Vector3 rightEyePosition = landmarks.rightEye.position;
 
             Vector3 glassesPosition = (leftEyePosition + rightEyePosition) / 2f;
 
-            GameObject glassesObject = Instantiate(glassesPrefab, glassesPosition, Quaternion.identity, glassesContainer.transform);
+            // Instantiate new glasses prefab
+            currentGlassesObject = Instantiate(glassesPrefab, glassesPosition, Quaternion.identity, glassesContainer.transform);
 
-            if (glassesObject == null)
+            if (currentGlassesObject == null)
             {
                 Debug.LogError("Failed to instantiate glasses prefab.");
-                yield break;
+                return;
             }
 
-            glassesObject.SetActive(true);
+            currentGlassesObject.SetActive(true);
 
-            SpriteRenderer spriteRenderer = glassesObject.GetComponent<SpriteRenderer>();
+            SpriteRenderer spriteRenderer = currentGlassesObject.GetComponent<SpriteRenderer>();
             if (spriteRenderer == null)
             {
-                spriteRenderer = glassesObject.AddComponent<SpriteRenderer>();
+                spriteRenderer = currentGlassesObject.AddComponent<SpriteRenderer>();
             }
             spriteRenderer.sprite = glassesSprite;
 
@@ -87,18 +82,17 @@ public class LoadGlassesOnFace : MonoBehaviour
 
             float scaleFactor = (distanceBetweenEyes * glassesScaleFactor) / spriteWidth;
 
-            glassesObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+            currentGlassesObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
 
-            glassesObject.transform.rotation = Quaternion.LookRotation(arFace.transform.forward, arFace.transform.up);
+            currentGlassesObject.transform.rotation = Quaternion.LookRotation(arFace.transform.forward, arFace.transform.up);
 
-            glassesObject.transform.position = glassesPosition - spriteRenderer.bounds.center * glassesObject.transform.localScale.x;
+            currentGlassesObject.transform.position = glassesPosition - spriteRenderer.bounds.center * currentGlassesObject.transform.localScale.x;
 
             Debug.Log("Glasses instantiated and positioned successfully.");
         }
         else
         {
             Debug.LogError("Failed to load glasses sprite: " + selectedGlasses);
-            yield break;
         }
     }
 }
