@@ -17,7 +17,7 @@ public class ProductButton : MonoBehaviour
     private Transform uiContainer;
 
     private bool isSelected = false; // Track selection state
-    private static List<ProductButton> selectedButtons = new List<ProductButton>(); // Track all selected buttons
+    public static List<ProductButton> selectedButtons = new List<ProductButton>();
 
     public void Setup(Product product, GameObject productUIPrefab, Transform uiContainer)
     {
@@ -26,18 +26,7 @@ public class ProductButton : MonoBehaviour
         this.uiContainer = uiContainer;
 
         productNameText.text = product.Name;
-
-        // Add a log to debug image loading
-        Debug.Log("Loading image for product: " + product.Name);
-        Sprite loadedSprite = product.Image;
-        if (loadedSprite != null)
-        {
-            productImage.sprite = loadedSprite;
-        }
-        else
-        {
-            Debug.LogError("Failed to load image for product: " + product.Name);
-        }
+        productImage.sprite = product.Image; // Load image directly from Product property
 
         button.onClick.AddListener(OnButtonClick);
         selectButton.onClick.AddListener(OnSelectButtonClick); // Set listener for select button

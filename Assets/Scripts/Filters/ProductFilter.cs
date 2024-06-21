@@ -1,18 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.IO;
 using System.Linq;
-using System;
 
 public class ProductFilter : MonoBehaviour
 {
     public static ProductFilter Instance { get; private set; } // Singleton instance
 
-    // Existing variables
+    // Dropdowns
     public TMP_Dropdown shapeDropdown;
     public TMP_Dropdown materialDropdown;
     public TMP_Dropdown colorDropdown;
@@ -20,6 +21,7 @@ public class ProductFilter : MonoBehaviour
     public TMP_Dropdown brandDropdown;
     public TMP_Dropdown genderDropdown;
     public Button applyFilterButton;
+    public Button goToBrilCheckerButton; // Button to go to BrilChecker scene
     public GameObject productPrefab;
     public Transform productContainer;
     public GameObject productUIPrefab;
@@ -39,8 +41,8 @@ public class ProductFilter : MonoBehaviour
     private const string serverUrl = "https://thunderleafstudios.nl/brilpasser-backend/unity/getMonturen.php";
     private string localJsonFilePath;
 
-    // New variables for item selection
-    public TextMeshProUGUI selectedItemsText; // UI text to display selected items
+    // UI for selected items
+    public TextMeshProUGUI selectedItemsText;
 
     void Awake()
     {
@@ -50,6 +52,7 @@ public class ProductFilter : MonoBehaviour
     void Start()
     {
         applyFilterButton.onClick.AddListener(ApplyFilters);
+        goToBrilCheckerButton.onClick.AddListener(GoToBrilChecker); // Add listener for Go to BrilChecker button
 
 #if UNITY_EDITOR
         localJsonFilePath = Path.Combine(Application.dataPath, "Resources/ProductData/monturen.json");
@@ -119,7 +122,6 @@ public class ProductFilter : MonoBehaviour
 
     void SaveLocalJson(string jsonData)
     {
-        Debug.Log(localJsonFilePath);
         File.WriteAllText(localJsonFilePath, jsonData);
         Debug.Log("Local JSON file updated.");
     }
@@ -267,10 +269,29 @@ public class ProductFilter : MonoBehaviour
         }
     }
 
-    // New method to update UI with selected items
+    // Method to update UI with selected items
     public void UpdateSelectedItemsText(List<string> selectedItems)
     {
-        selectedItemsText.text = "Selected Items: " + string.Join(", ", selectedItems.ToArray());
+        selectedItemsText.text = "Geselecteerd: " + string.Join(", ", selectedItems.ToArray());
+    }
+
+    // Method to go to BrilChecker scene with selected products
+    void GoToBrilChecker()
+    {
+        // Gather selected product names
+        List<string> selectedProducts = new List<string>();
+        foreach (var productButton in ProductButton.selectedButtons)
+        {
+            selectedProducts.Add(productButton.productNameText.text);
+        }
+
+        // Store selected product names in PlayerPrefs
+        string selectedProductNames = string.Join(",", selectedProducts.ToArray());
+        PlayerPrefs.SetString("SelectedProductNames", selectedProductNames);
+        PlayerPrefs.Save();
+
+        // Load BrilChecker scene
+        SceneManager.LoadScene("BrilChecker");
     }
 
     [System.Serializable]
