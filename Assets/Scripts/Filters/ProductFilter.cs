@@ -10,6 +10,9 @@ using System;
 
 public class ProductFilter : MonoBehaviour
 {
+    public static ProductFilter Instance { get; private set; } // Singleton instance
+
+    // Existing variables
     public TMP_Dropdown shapeDropdown;
     public TMP_Dropdown materialDropdown;
     public TMP_Dropdown colorDropdown;
@@ -34,8 +37,15 @@ public class ProductFilter : MonoBehaviour
     private const string GenderPrefKey = "GenderFilter";
 
     private const string serverUrl = "https://thunderleafstudios.nl/brilpasser-backend/unity/getMonturen.php";
-
     private string localJsonFilePath;
+
+    // New variables for item selection
+    public TextMeshProUGUI selectedItemsText; // UI text to display selected items
+
+    void Awake()
+    {
+        Instance = this; // Assign instance in Awake
+    }
 
     void Start()
     {
@@ -255,6 +265,12 @@ public class ProductFilter : MonoBehaviour
         {
             Debug.LogError("Dropdown reference is null.");
         }
+    }
+
+    // New method to update UI with selected items
+    public void UpdateSelectedItemsText(List<string> selectedItems)
+    {
+        selectedItemsText.text = "Selected Items: " + string.Join(", ", selectedItems.ToArray());
     }
 
     [System.Serializable]
