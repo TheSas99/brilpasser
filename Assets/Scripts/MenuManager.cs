@@ -7,7 +7,7 @@ public class MenuManager : MonoBehaviour
 {
     public void StartApp()
     {
-        SceneManager.LoadScene("BrilChecker");
+        SceneManager.LoadScene("Filter");
     }
 
     public void OpenFilterMenu()

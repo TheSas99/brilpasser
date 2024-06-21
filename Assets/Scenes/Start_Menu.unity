@@ -1081,6 +1081,7 @@ GameObject:
   - component: {fileID: 1505491502}
   - component: {fileID: 1505491504}
   - component: {fileID: 1505491503}
+  - component: {fileID: 1505491505}
   m_Layer: 5
   m_Name: WarningBox
   m_TagString: Untagged
@@ -1147,6 +1148,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1505491501}
   m_CullTransparentMesh: 1
+--- !u!114 &1505491505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505491501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5647c87489961c4fb6210cdaa4e4e13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayText: {fileID: 300631895}
+  messages:
+  - Let op je omgeving tijdens het gebruik van Brilpasser
+  - Uw foto's worden niet opgeslagen op onze service!
+  - In de instellingen kunt u uw gewenste sterkte toevoegen
 --- !u!1 &1682612769
 GameObject:
   m_ObjectHideFlags: 0
