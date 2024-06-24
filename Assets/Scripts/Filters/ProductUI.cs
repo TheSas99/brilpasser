@@ -77,6 +77,8 @@ public class ProductUI : MonoBehaviour
         // Store the selected product name in PlayerPrefs
         PlayerPrefs.SetString("SelectedProductName", selectedProductName);
 
+        ClearSelectedProductNames();
+
         // Load the next scene
         SceneManager.LoadScene("BrilChecker");
     }

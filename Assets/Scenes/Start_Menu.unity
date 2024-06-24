@@ -1165,6 +1165,9 @@ MonoBehaviour:
   - Let op je omgeving tijdens het gebruik van Brilpasser
   - Uw foto's worden niet opgeslagen op onze service!
   - In de instellingen kunt u uw gewenste sterkte toevoegen
+  - Gebruik de applicatie niet langer dan een half uur achterelkaar
+  - Tip! Beperk uw schermtijd tijdens het gebruik van de applicatie
+  - U kunt maximaal 3 brillen per keer selecteren!
 --- !u!1 &1682612769
 GameObject:
   m_ObjectHideFlags: 0

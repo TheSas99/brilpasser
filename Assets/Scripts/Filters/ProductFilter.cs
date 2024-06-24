@@ -284,6 +284,7 @@ public class ProductFilter : MonoBehaviour
         foreach (var productButton in ProductButton.selectedButtons)
         {
             selectedProducts.Add(productButton.productNameText.text);
+
         }
 
         // Store selected product names in PlayerPrefs
@@ -291,6 +292,8 @@ public class ProductFilter : MonoBehaviour
         PlayerPrefs.SetString(SelectedProductNamesKey, selectedProductNames);
         PlayerPrefs.Save();
 
+        PlayerPrefs.DeleteKey("SelectedProductName");
+        PlayerPrefs.Save();
         // Load BrilChecker scene
         SceneManager.LoadScene("BrilChecker");
     }
@@ -301,7 +304,18 @@ public class ProductFilter : MonoBehaviour
         PlayerPrefs.DeleteKey(SelectedProductNamesKey);
         PlayerPrefs.Save();
         Debug.Log("Deleted SelectedProductNames from PlayerPrefs.");
+
+        // Clear the selected product buttons list
+        ProductButton.selectedButtons.Clear();
+
+        // Update the UI text to reflect the cleared selection
+        if (selectedItemsText != null)
+        {
+            selectedItemsText.text = "Geselecteerd: geen";
+        }
     }
+
+
 
 
     [System.Serializable]
