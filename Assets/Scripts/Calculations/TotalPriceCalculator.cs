@@ -31,7 +31,6 @@ public class TotalPriceCalculator : MonoBehaviour
 
     float ParsePriceValue(string priceString)
     {
-        // Remove non-numeric characters (like the euro sign) and parse the float value
         float priceValue;
         float.TryParse(priceString.Replace("€", "").Trim(), out priceValue);
         return priceValue;
