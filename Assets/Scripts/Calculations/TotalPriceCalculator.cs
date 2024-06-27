@@ -14,18 +14,14 @@ public class TotalPriceCalculator : MonoBehaviour
 
     void CalculateTotalPrice()
     {
-        // Get the text from the TextMeshPro text objects
         string framePriceString = framePriceText.text;
         string totalGlassesPriceString = totalGlassesPriceText.text;
 
-        // Parse the numerical values from the texts
         float framePriceValue = ParsePriceValue(framePriceString);
         float totalGlassesPriceValue = ParsePriceValue(totalGlassesPriceString);
 
-        // Calculate the total price
         float totalPrice = framePriceValue + totalGlassesPriceValue;
 
-        // Display the total price
         totalPriceText.text = "€" + totalPrice.ToString("F2");
     }
 

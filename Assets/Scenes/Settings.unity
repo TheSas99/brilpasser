@@ -3086,8 +3086,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   phoneButton: {fileID: 1430464470}
   emailButton: {fileID: 436839250}
-  phoneNumber: 0637374262
-  email: 0996746@hr.nl
+  phoneNumber: 0104325891
+  email: info@stouthartopticiens.nl
 --- !u!1 &736463924
 GameObject:
   m_ObjectHideFlags: 0

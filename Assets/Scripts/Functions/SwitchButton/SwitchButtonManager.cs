@@ -10,27 +10,20 @@ public class ProductSwitchManager : MonoBehaviour
 
     void Start()
     {
-        // Clear existing buttons
         foreach (Transform child in buttonsContainer)
         {
             Destroy(child.gameObject);
         }
-
-        // Retrieve selected product names from PlayerPrefs
         string selectedProductsString = PlayerPrefs.GetString("SelectedProductNames", string.Empty);
         string[] selectedProductNames = selectedProductsString.Split(',');
 
-        // Check if there are multiple selected products
         if (selectedProductNames.Length > 1)
         {
-            Vector2 buttonPosition = Vector2.zero; // Initial position for the first button
+            Vector2 buttonPosition = Vector2.zero;
 
-            // Instantiate a button for each selected product name
             foreach (var productName in selectedProductNames)
             {
                 GameObject switchButtonGO = Instantiate(switchButtonPrefab, buttonsContainer);
-
-                // Set parent to buttonsContainer and reset local position and scale
                 switchButtonGO.transform.SetParent(buttonsContainer);
                 switchButtonGO.transform.localPosition = buttonPosition;
                 switchButtonGO.transform.localScale = Vector3.one;
@@ -46,14 +39,11 @@ public class ProductSwitchManager : MonoBehaviour
                     Debug.LogError("SwitchButton component not found on prefab.");
                 }
 
-                // Update button position for the next button
                 buttonPosition += buttonSpacing;
             }
         }
-        // No need to instantiate buttons if only one or no products are selected
     }
 
-    // Method to clear selected product names from PlayerPrefs
     void ClearSelectedProductNames()
     {
         PlayerPrefs.DeleteKey("SelectedProductNames");
